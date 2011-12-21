@@ -1,0 +1,6 @@
+<h1>Microgem: Jslintrb V8</h1>
+<div class='post'>
+GOAL: Provide a Ruby interface for running JSLint on javascript files using v8.<br /><pre class="prettyprint">require 'jslintrb-v8'<br />puts JSLint.new.check("var x = 5")</pre>Will return the string:<br /><pre>Error at line 1 character 1: Missing "use strict" statement.<br />   var x = 5<br /> Error at line 1 character 10: Missing semicolon.<br />   var x = 5</pre>Also, all of jslint's configuration options are available in the constructor:<br /><pre class="prettyprint">JSLint.new(:undef => false, :sub => true)</pre><a href="https://github.com/ngauthier/jslintrb-v8">JSLintRB-v8 on Github</a><br /><a href="http://rdoc.info/github/ngauthier/jslintrb-v8/master/JSLint">JSLintRB-v8 on Rdoc.info</a></div>
+<h2>Comments</h2>
+<div class='comments'>
+</div>

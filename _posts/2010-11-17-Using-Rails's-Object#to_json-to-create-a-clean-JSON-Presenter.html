@@ -1,0 +1,23 @@
+---
+layout: post
+title: Using Rails's Object#to_json to create a clean JSON Presenter
+date: 2010-11-17
+comments: false
+---
+
+<h1>{{ page.title }}</h1>
+<div class='post'>
+The problem: You have an ActiveRecord model (or any object, really) and you want to output it to json, but you need some specific methods and maybe some processing of its attributes before you can call .to_json.<br /><br />Let's pretend we have the following object:<br /><br /><pre class="prettyprint">class Widget<br />  attr_accessor :id<br />  attr_accessor :name<br />  attr_accessor :gadgets<br />end<br /><br />class Gadget<br />  attr_accessor :id<br />  attr_accessor :name<br />end<br /></pre><br />And we want this json from a widget:<br /><br /><pre class="prettyprint">{<br />  id : 'widget-47',<br />  name: 'name of widget',<br />  children: [<br />    {<br />      id : 'gadget-63',<br />      name : 'name of gadget'<br />    }<br />  ]<br />}<br /></pre><br />Note that ID has the class name on the front, the name is passed through directly. Also, the sub-objects (Gadget) have their id processed.<br /><br />First, let's make the Gadget presenter:<br /><br /><pre class="prettyprint">class GadgetPresenter<br />  attr_reader :id<br />  attr_reader :name<br />  def initialize(gadget)<br />    @id = %{gadget-#{gadget.id}}<br />    @name = gadget.name<br />  end<br />end<br /></pre><br />Rails provides Object extensions that give us a to_json method on every object. By default, this will call all of our attr_readers. So, all we have to do is provide attr_readers for the attributes we want in the json. Now, Gadget#to_json would give us:<br /><br /><pre class="prettyprint">{<br />  id: 'gadget-63',<br />  name: 'name of gadget'<br />}<br /></pre><br />Now the Widget presenter:<br /><br /><pre class="prettyprint">class WidgetPresenter<br />  attr_reader :id<br />  attr_reader :name<br />  attr_reader :children<br />  def initialize(widget)<br />    @id = %{widget-#{widget.id}}<br />    @name = widget.name<br />    @children = widget.gadgets.collect{|g| GadgetPresenter.new(g)}<br />  end<br />end<br /></pre><br />Pretty much the same, except for the children. This lets us call the associate "children" instead of "gadgets". And all we have to do is collect up a bunch of gadget presenters. When .to_json is called on the widget, it calls to_json on the attributes. Since children is an array, it collects .to_json from each entry in the array, which calls the GadgetPresenter's to_json.<br /><br />I really like this implementation because it's really just an adapter, and it only concerns itself with the data. It is also external to the Widget and Gadget class, allowing for multiple types of presenters easily.<br /><br /><br />Here is a running example: (requires rails 3) <a href="https://gist.github.com/703747">https://gist.github.com/703747</a></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>bryanl</div>
+<div class='content'>
+app/presenters works well.  Keeping everything in app/models makes little babies cry.</div>
+</div>
+<div class='comment'>
+<div class='author'>mattsears</div>
+<div class='content'>
+Nice article, thanks for posting this.  Quick question...where do you recommend storing the presenter classes in you Rails project?  I thought about &#39;app/presenters&#39;, but maybe that&#39;s overkill?</div>
+</div>
+</div>

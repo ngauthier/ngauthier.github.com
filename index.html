@@ -1,0 +1,14 @@
+---           
+layout: default
+title: Nick Gauthier
+comments: false
+categories: 
+---
+<p>There are {{ site.posts | size }} posts</p>
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>

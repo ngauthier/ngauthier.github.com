@@ -1,0 +1,13 @@
+---
+layout: post
+title: Backbone JS: View signatures to prevent repaints
+date: 2011-03-10
+comments: false
+---
+
+<h1>{{ page.title }}</h1>
+<div class='post'>
+<p>A nice thing about backbone is being able to bind a view render to new data. But sometimes you get new data, but it's not actually new, it's the same data that has not been updated. This will still cause the view to repaint because the event will fire.</p><p>To combat this, I've started putting signatures on my views.</p><p>In the initializer for the view:</p><pre class='prettyprint'>this.signature = "";</pre><p>Then in the render method, I do a reduction on the data that drives the view and compare signatures and decide to paint or not:</p><pre class='prettyprint'><br />// Create a signature from the "Posts" that this view renders<br />var new_signature = _.reduce(posts, function(memo, post) {<br />  // Store the id and number of comments. This represents what a<br />  // "changed" post is for the view<br />  memo.push([post.get('id'), post.get('num_comments')].join(','));<br />  return memo;<br />}, []).join('|'); // joined with pipes for each post<br /><br />// If the signature is the same, end the render<br />if (new_signature === this.signature) {<br />  this.signature = new_signature;<br />  return;<br />}<br />// Otherwise store the signature<br />this.signature = new_signature;<br />// Your view code down here<br /></pre><p>This is essentially caching with a custom cache key. Except instead of retrieving a cached value, we leave the dom as-is. This cuts down on repaint "flickering".</p></div>
+<h2>Comments</h2>
+<div class='comments'>
+</div>

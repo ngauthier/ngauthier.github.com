@@ -1,0 +1,13 @@
+---
+layout: post
+title: PRY - Please Repeat Yourself
+date: 2010-11-08
+comments: false
+---
+
+<h1>{{ page.title }}</h1>
+<div class='post'>
+It's the canonical ruby metaprogramming example. You have this:<br /><br /><pre class="prettyprint">def large_image<br />  image_base + '-large.png'<br />end<br /><br />def medium_image<br />  image_base + '-medium.png'<br />end<br /><br />def small_image<br />  image_base + '-small.png'<br />end<br /></pre><br />And you do some dynamic programming to define the methods with similar content:<br /><br /><pre class="prettyprint">%w(large medium small).each do |size|<br />  class_eval %{<br />    def #{size}_image<br />      image_base + '-#{size}.png'<br />    end<br />  }<br />end<br /></pre><br />I have two problems with this pattern:<br /><br />1) The dynamic code is far less readable and clear. It might even need a comment! The static code is very easy to read.<br /><br />2) The dynamic code gives terrible stack traces<br /><pre>(eval):3:in `small_image': undefined local variable or method `image_base' for #<Image:0x4333458> (NameError)<br />  from test.rb:28<br /></pre>Versus the static stack trace:<br /><pre>test.rb:15:in `small_image': undefined local variable or method `image_base' for #<Image:0x47f42a8> (NameError)<br />  from test.rb:28<br /></pre>Here, test.rb:15 is the line inside "small_image" that calls "image_base". <br /><br /><br />The argument for metaprogramming is so that there is only one place to change the content. However this is easily accomplished with a helper. In fact I already had that helper in place, image_base. If you find yourself repeating the code *inside* the method, it's worth extracting into a helper.<br /><br /><br />Metaprogramming is for a dynamic system, not for enumerations. For example, Rails controllers use dynamic programming to allow you to define your own action methods. These methods are called dynamically by the router. This is a huge oversimplification, but the idea is that the Rails authors have no idea what method names could be used, so they can't type them all out. It's a fundamentally different problem.<br /><br /><br />If you find repetition in coding to be a difficult task, consider investing some time in learning a powerful editor with a regular expression matching and replace function.<br /><br />So, please repeat yourself!</div>
+<h2>Comments</h2>
+<div class='comments'>
+</div>

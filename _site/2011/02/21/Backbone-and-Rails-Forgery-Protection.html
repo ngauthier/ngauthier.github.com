@@ -1,0 +1,41 @@
+<h1>Backbone and Rails Forgery Protection</h1>
+<div class='post'>
+<p>I just had a tough time getting Rails 3 to play nice with Backbone JS, and it turned out to be a simple problem with a simple solution. Backbone was not sending the csrf authenticity token embedded in the page when it sent create/update/delete requests, and Rails was destroying the session when it detected the invalid request.</p><p>Here is all the javascript it took to get Backbone to include the token with all requests:</p><pre class="prettyprint"><br />/* alias away the sync method */<br />Backbone._sync = Backbone.sync;<br /><br />/* define a new sync method */<br />Backbone.sync = function(method, model, success, error) {<br />  /* only need a token for non-get requests */<br />  if (method == 'create' || method == 'update' || method == 'delete') {<br />    /* grab the token from the meta tag rails embeds */<br />    var auth_options = {};<br />    auth_options[$("meta[name='csrf-param']").attr('content')] =<br />                 $("meta[name='csrf-token']").attr('content');<br />    /* set it as a model attribute without triggering events */<br />    model.set(auth_options, {silent: true});<br />  }<br />  /* proxy the call to the old sync method */<br />  return Backbone._sync(method, model, success, error);<br />}<br /></pre><p>Note that this depends on the meta tags being present, which require you to call the helper "csrf_meta_tag" in your rails view for the page (put it in the head).</p></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>vijaydev</div>
+<div class='content'>
+Thanks a lot!</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+awesome! Thanks for packaging it up nicely!</div>
+</div>
+<div class='comment'>
+<div class='author'>Maciej Adwent</div>
+<div class='content'>
+Heya Nick,<br /><br />Thanks for this code, it really cleared up some initial confusion for me.<br /><br />I&#39;ve wrapped your code up in a little github project:<br /><br />https://github.com/Maciek416/BackboneRailsAuthTokenAdapter</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+jammit + underscore templates + json api.<br /><br />Benchmarks are tough because it depends heavily on many factors. However, I can tell you that a specifically heavy page went from 10s just for the Rails request, to 0.6s according to chrome&#39;s load time. So, speed improvements are massive.<br /><br />Also, the user&#39;s subjective speed is even higher, because we can manipulate elements on the front-end while doing an asynchronous call behind the scenes. So everything is instant :-)</div>
+</div>
+<div class='comment'>
+<div class='author'>rubiii</div>
+<div class='content'>
+got it. i also love the evented part of backbone!<br /><br />so how do you do templating? do you load templates upfront (via something like jammit) and then request json data, do you load the templates and the json and rely on caching or do you have rails render the template and retrieve the complete template?<br /><br />also, did you run any metrics comparing the performance of your app with and without backbone?</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+I&#39;m going to put together something larger. It may fit in a blog post, but probably not. It may be a talk, I&#39;m not sure yet.<br /><br />I don&#39;t want to do a tutorial. For me, that&#39;s not very interesting. I want to write about backbone &quot;6 months in&quot; because that&#39;s where I think it will really shine.<br /><br />So far, my initial impressions are that the code you write on the front end is code that you don&#39;t have to write on the back (especially crazy rails view code).<br /><br />The most amazing part so far has been that if you wire everything up right by embracing event-driven coding, changes cascade to all the right places automatically. That is *huge* for &quot;6 months in&quot; when you can&#39;t afford to update an ajax call in 24 places when you change a template.</div>
+</div>
+<div class='comment'>
+<div class='author'>rubiii</div>
+<div class='content'>
+i&#39;d love to hear more about using backbone with rails. i really like backbone, but to me it still feels like i have to write &quot;a lot&quot; of additional code. routes, models and validations for example.<br /><br />i&#39;m hacking on retrieving these things from rails, but maybe there&#39;s a better way to do this?!</div>
+</div>
+</div>

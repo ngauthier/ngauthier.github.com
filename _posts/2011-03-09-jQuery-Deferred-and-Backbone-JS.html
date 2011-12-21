@@ -1,0 +1,23 @@
+---
+layout: post
+title: jQuery Deferred and Backbone JS
+date: 2011-03-09
+comments: false
+---
+
+<h1>{{ page.title }}</h1>
+<div class='post'>
+<p>Backbone is a really interesting framework, and my favorite part so far is the following idea:</p><blockquote>If you use a callback, you're Doing It Wrong</blockquote><p>This has held true for me for my development with Backbone so far. When you make <b>data</b> calls to the server, you let the appropriate events notify interested parties when objects are changed or updated or refreshed.</p><p>However, with non-data operations, callbacks can be really useful. Today, I needed to animate an object, using jQuery's slideUp. I wanted the slideUp to go hand-in-hand with a deletion of an object. Because slideUp is asynchronous, and the deletion action is asynchronous, I needed a callback to synchronize them. The reason I couldn't do them simultaneously is that when an object is deleted, many view elements refresh themselves, and if the slideUp wasn't finish the dom refreshing would interrupt the slideUp and it looked gross.</p><p>So, I need a callback on slideUp to call remove. Here arose an <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">SRP</a> problem: the view should not concern itself with the removal of the model from the collection. One solution is for the view's removal method to take a callback and pass it along to slideUp. But I wanted something more flexible. Enter jQuery Deferred.</p><p>Deferred objects let you <i>chain callbacks</i> and <i>return promises as objects</i>. For you Rails readers, <b>imagine AREL had a hot sister written in Javascript that was into AJAX</b>.</p><p>So here is my view method that runs slideUp and returns a deferred object:</p><pre class='prettyprint'><br />return $(this.el).slideUp(200).promise().done(<br />  _.bind(function() { this.remove(); }, this<br />);<br /></pre><p>Now when we archive and email, we want to remove the dom element by sliding, then we want to tell the email model to archive itself. Here is the archive method:</p><pre class='prettyprint'><br />this.remove().then(this.model.archive);<br /></pre><p>Pretty straightforward. We call remove (the previous method) then we tell the model to archive itself. This method is bound to the click event on the archive button using Backbone's view event binding methods. When the model archives itself, Backbone events automatically fire, so other Views can listen for "change" and "remove" to update their elements.</p><p>EDIT: changed code reflecting Julian's comments.</p></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+Cool! Yeah I noticed slideUp didn&#39;t return a promise, so I didn&#39;t know what to do with it.<br /><br />I think I&#39;d still need the _.bind within the done to bind to the object though, right?</div>
+</div>
+<div class='comment'>
+<div class='author'>Julian</div>
+<div class='content'>
+Using jQuery 1.6, you can considerably simplify your method:<br /><br />remove: function() {<br />return<br />$(this.el)<br />.slideUp(200)<br />.promise()<br />.done(function() { this.remove(); });<br />}<br /><br />1.6 adds jQuery.fn.promise() that returns a Promise to observe when a collection has no more animation going on. It&#39;s resolved with the collection is was called on as its context and first &amp; only argument.<br /><br />(sorry for how the code is formatted, Blogger&#39;s comments just plain suck :/)</div>
+</div>
+</div>
