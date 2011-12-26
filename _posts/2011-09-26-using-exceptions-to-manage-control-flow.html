@@ -11,69 +11,29 @@ comments: false
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Nick Gauthier</div>
+<div class='author'>Jim Gay</div>
 <div class='content'>
-@Patrick thanks! You&#39;re the third person to suggest a domain model as a solution. I like the idea of making the model encapsulate the multiple actions and have the controller simply perform the standard Create action on the domain model.</div>
-</div>
-<div class='comment'>
-<div class='author'>Patrick</div>
-<div class='content'>
-I just posted a <a href="http://www.viget.com/extend/using-object-oriented-programming-to-manage-control-flow-in-rails-controlle/" rel="nofollow">deeper refactoring of this code</a> and thought it might be of interest. I&#39;m curious to get others&#39; thoughts on this approach.<br /><br />Thanks.</div>
-</div>
-<div class='comment'>
-<div class='author'>rubiii</div>
-<div class='content'>
-Ok, so now that I&#39;ve actually read the title of your post ... ;) Using Exceptions for control flow feels like writing goto statements again?!</div>
-</div>
-<div class='comment'>
-<div class='author'>rubiii</div>
-<div class='content'>
-Nick, your solution is pretty interesting. Thanks for posting this.<br /><br />It feels like you&#39;re using Exceptions for flow control. At least I don&#39;t see missing parameters as an exceptional case. It&#39;s possible and expected to happen. That&#39;s why we test for it.</div>
+Interesting.<br />But this will only catch one error at a time, so you&#39;d return the result when the first raise is hit even if multiple parameters are missing.<br /><br />And Avdi points out that there is performance overhead with raising exceptions. Did you opt not to worry about that? Why not just collect an array of errors and test for their presence?</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
 <div class='content'>
-I wanted to log this response post here for people reading the comments:<br /><br />http://www.enlightsolutions.com/articles/catch-all-exception-handling-is-not-flow-control/</div>
+I think the performance overhead isn&#39;t an issue here. I expect users only to get it wrong while they&#39;re figuring it out. If this was on a form or something, then I&#39;d raise an exception if the user is invalid, and I&#39;d have all the params right there. But this is an API call, so it&#39;s more of a &quot;while I&#39;m developing I get errors&quot;.<br /><br />Also keep in mind it&#39;s more performant the sooner I can bail out of processing the request :-)<br /><br />Collecting and returning all errors makes sense for fetching the params, but if I can&#39;t find a user I can&#39;t proceed with the rest of the call. So I have to stop execution anyways.</div>
+</div>
+<div class='comment'>
+<div class='author'>codecraig</div>
+<div class='content'>
+I&#39;ve used a similar approach although I was a little bit more granular in the HTTP response codes. For example I&#39;d send back a 404 if an entity was not found.</div>
+</div>
+<div class='comment'>
+<div class='author'>james</div>
+<div class='content'>
+- There&#39;s too much going on this method.<br />- From my limited reading of Avdi&#39;s blog posts / presentation slides, I don&#39;t feel that he would agree with using exceptions this way.<br />- If you really want to subclass RuntimeError, I would choose a more descriptive name.<br /><br />An alternative: https://gist.github.com/1243758</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
 <div class='content'>
-@Brian:<br /><br />https://gist.github.com/1245342<br /><br />your incorrect assumption is that every api call fails. When 1 per 1 million calls fail, exceptions are 3% slower, which is acceptable for readability purposed.</div>
-</div>
-<div class='comment'>
-<div class='author'>Brian Cardarella</div>
-<div class='content'>
-Nick,<br /><br />https://gist.github.com/1245327</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-I made a gist:<br /><br />https://gist.github.com/1245259<br /><br />fork it!</div>
-</div>
-<div class='comment'>
-<div class='author'>Brian Cardarella</div>
-<div class='content'>
-That was a reference to spaghetti code incase it was over anybody&#39;s head.</div>
-</div>
-<div class='comment'>
-<div class='author'>Brian Cardarella</div>
-<div class='content'>
-http://i.imgur.com/HDhaa.png</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Lack of self confidence.</div>
-</div>
-<div class='comment'>
-<div class='author'>bryanl</div>
-<div class='content'>
-Why didn&#39;t you just use a goto? It would be more explicit, and the exact same thing you are trying to accomplish here.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Forgot about &quot;raise Error, &quot;message&quot;&quot; :-)<br /><br />Yeah the &quot;where&quot; on user should be &quot;User.authenticate_via_oauth(screen_name, token, secret) =&gt; user or nil&quot;<br /><br />Thanks for the feedback everyone. Glad to know the controller is still an interesting area to experiment with.</div>
+@codecraig great point on the 404. Could be an additional subclass that has the status set.<br /><br />@james I&#39;m looking up a user and creating a device. This is the minimum amount that can be done in a nested route on a create action. I disagree with your extraction because it will be only used in this single situation and obfuscates the method.<br /><br />I might make a User.authenticate_via_oauth(screen_name, token, secret) that returns nil or a user, but creating a separate class is overkill here IMO.</div>
 </div>
 <div class='comment'>
 <div class='author'>Avdi Grimm</div>
@@ -83,26 +43,66 @@ Assorted thoughts...<br /><br />* So many wonderful fetches! My cup overflows.<b
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
 <div class='content'>
-@codecraig great point on the 404. Could be an additional subclass that has the status set.<br /><br />@james I&#39;m looking up a user and creating a device. This is the minimum amount that can be done in a nested route on a create action. I disagree with your extraction because it will be only used in this single situation and obfuscates the method.<br /><br />I might make a User.authenticate_via_oauth(screen_name, token, secret) that returns nil or a user, but creating a separate class is overkill here IMO.</div>
+Forgot about &quot;raise Error, &quot;message&quot;&quot; :-)<br /><br />Yeah the &quot;where&quot; on user should be &quot;User.authenticate_via_oauth(screen_name, token, secret) =&gt; user or nil&quot;<br /><br />Thanks for the feedback everyone. Glad to know the controller is still an interesting area to experiment with.</div>
 </div>
 <div class='comment'>
-<div class='author'>james</div>
+<div class='author'>bryanl</div>
 <div class='content'>
-- There&#39;s too much going on this method.<br />- From my limited reading of Avdi&#39;s blog posts / presentation slides, I don&#39;t feel that he would agree with using exceptions this way.<br />- If you really want to subclass RuntimeError, I would choose a more descriptive name.<br /><br />An alternative: https://gist.github.com/1243758</div>
-</div>
-<div class='comment'>
-<div class='author'>codecraig</div>
-<div class='content'>
-I&#39;ve used a similar approach although I was a little bit more granular in the HTTP response codes. For example I&#39;d send back a 404 if an entity was not found.</div>
+Why didn&#39;t you just use a goto? It would be more explicit, and the exact same thing you are trying to accomplish here.</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
 <div class='content'>
-I think the performance overhead isn&#39;t an issue here. I expect users only to get it wrong while they&#39;re figuring it out. If this was on a form or something, then I&#39;d raise an exception if the user is invalid, and I&#39;d have all the params right there. But this is an API call, so it&#39;s more of a &quot;while I&#39;m developing I get errors&quot;.<br /><br />Also keep in mind it&#39;s more performant the sooner I can bail out of processing the request :-)<br /><br />Collecting and returning all errors makes sense for fetching the params, but if I can&#39;t find a user I can&#39;t proceed with the rest of the call. So I have to stop execution anyways.</div>
+Lack of self confidence.</div>
 </div>
 <div class='comment'>
-<div class='author'>Jim Gay</div>
+<div class='author'>Brian Cardarella</div>
 <div class='content'>
-Interesting.<br />But this will only catch one error at a time, so you&#39;d return the result when the first raise is hit even if multiple parameters are missing.<br /><br />And Avdi points out that there is performance overhead with raising exceptions. Did you opt not to worry about that? Why not just collect an array of errors and test for their presence?</div>
+http://i.imgur.com/HDhaa.png</div>
+</div>
+<div class='comment'>
+<div class='author'>Brian Cardarella</div>
+<div class='content'>
+That was a reference to spaghetti code incase it was over anybody&#39;s head.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+I made a gist:<br /><br />https://gist.github.com/1245259<br /><br />fork it!</div>
+</div>
+<div class='comment'>
+<div class='author'>Brian Cardarella</div>
+<div class='content'>
+Nick,<br /><br />https://gist.github.com/1245327</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@Brian:<br /><br />https://gist.github.com/1245342<br /><br />your incorrect assumption is that every api call fails. When 1 per 1 million calls fail, exceptions are 3% slower, which is acceptable for readability purposed.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+I wanted to log this response post here for people reading the comments:<br /><br />http://www.enlightsolutions.com/articles/catch-all-exception-handling-is-not-flow-control/</div>
+</div>
+<div class='comment'>
+<div class='author'>rubiii</div>
+<div class='content'>
+Nick, your solution is pretty interesting. Thanks for posting this.<br /><br />It feels like you&#39;re using Exceptions for flow control. At least I don&#39;t see missing parameters as an exceptional case. It&#39;s possible and expected to happen. That&#39;s why we test for it.</div>
+</div>
+<div class='comment'>
+<div class='author'>rubiii</div>
+<div class='content'>
+Ok, so now that I&#39;ve actually read the title of your post ... ;) Using Exceptions for control flow feels like writing goto statements again?!</div>
+</div>
+<div class='comment'>
+<div class='author'>Patrick</div>
+<div class='content'>
+I just posted a <a href="http://www.viget.com/extend/using-object-oriented-programming-to-manage-control-flow-in-rails-controlle/" rel="nofollow">deeper refactoring of this code</a> and thought it might be of interest. I&#39;m curious to get others&#39; thoughts on this approach.<br /><br />Thanks.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@Patrick thanks! You&#39;re the third person to suggest a domain model as a solution. I like the idea of making the model encapsulate the multiple actions and have the controller simply perform the standard Create action on the domain model.</div>
 </div>
 </div>

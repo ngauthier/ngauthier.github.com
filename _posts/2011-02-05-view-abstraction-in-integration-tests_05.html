@@ -11,34 +11,9 @@ comments: false
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-This has been released as a Gem, and the syntax is changed a bit:<br /><br />https://github.com/ngauthier/domino</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@Jakub<br /><br />I&#39;ve been adding more functionality, and it seems like you&#39;re right and it would make a nice gem. Mostly to make it easier to define selectors and attributes, and make a bunch of convenience methods (like the enumerable methods).<br /><br />Also, I am planning on bundling some assertions with the gem, which will take advantage of capybara&#39;s automatic delay on failed assertions. I&#39;ll post on this blog soon when it is released.<br /><br />-Nick</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Thanks Corey, that&#39;s exactly what I&#39;m trying to do. I figured there was no way I could be the first person to think of this :-)</div>
-</div>
-<div class='comment'>
-<div class='author'>Corey Haines</div>
-<div class='content'>
-Hi, Nick,<br />Good thoughts.<br />This looks similar to the page object pattern that a lot of people are using these days in Watir and Selenium tests. Have you looked at that? It could help influence your stuff, hopefully guide you past any dark corners they&#39;ve already dealt with.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-yeah, I think moving them to separate files is definitely a cleaner way of doing it. Feel free to make a gem / plugin with generators to make it easier for yourself.</div>
-</div>
-<div class='comment'>
 <div class='author'>Jakub</div>
 <div class='content'>
-Thanks for the answer Nick! You can be right, maybe it&#39;s too much for a gem, however having that in a generator could be a trick. <br /><br />There is no need for the gem to understand css nor thoughtlessly map db - it can generate some conventional files that can be easily modified to fit the view. Actually, modifying those files would be a first step of a view specification!<br /><br />The thing about that pattern is, for me, that those methods should not be stuffed in helpers (or additional spec/test methods) which is usually done. And to not forget that, the gem hooked to a initializer would be nice.</div>
+I am sure your idea is gonna turn into a gem. It just fits so well in a view testing pattern and adds performance to it also. I don&#39;t fancy Cucumber, use Steak, but still I Repeat Myself with # and . so unql.<br /><br />Gem would be nice. Generating test/views/abstract.rb and test/views/abstract/model.rb - so nice to modify you know. I&#39;m looking forward to help out with gem development. Wish you luck.</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
@@ -48,6 +23,31 @@ Hey Jakub, glad you liked the post.<br /><br />I don&#39;t think this would make
 <div class='comment'>
 <div class='author'>Jakub</div>
 <div class='content'>
-I am sure your idea is gonna turn into a gem. It just fits so well in a view testing pattern and adds performance to it also. I don&#39;t fancy Cucumber, use Steak, but still I Repeat Myself with # and . so unql.<br /><br />Gem would be nice. Generating test/views/abstract.rb and test/views/abstract/model.rb - so nice to modify you know. I&#39;m looking forward to help out with gem development. Wish you luck.</div>
+Thanks for the answer Nick! You can be right, maybe it&#39;s too much for a gem, however having that in a generator could be a trick. <br /><br />There is no need for the gem to understand css nor thoughtlessly map db - it can generate some conventional files that can be easily modified to fit the view. Actually, modifying those files would be a first step of a view specification!<br /><br />The thing about that pattern is, for me, that those methods should not be stuffed in helpers (or additional spec/test methods) which is usually done. And to not forget that, the gem hooked to a initializer would be nice.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+yeah, I think moving them to separate files is definitely a cleaner way of doing it. Feel free to make a gem / plugin with generators to make it easier for yourself.</div>
+</div>
+<div class='comment'>
+<div class='author'>Corey Haines</div>
+<div class='content'>
+Hi, Nick,<br />Good thoughts.<br />This looks similar to the page object pattern that a lot of people are using these days in Watir and Selenium tests. Have you looked at that? It could help influence your stuff, hopefully guide you past any dark corners they&#39;ve already dealt with.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+Thanks Corey, that&#39;s exactly what I&#39;m trying to do. I figured there was no way I could be the first person to think of this :-)</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@Jakub<br /><br />I&#39;ve been adding more functionality, and it seems like you&#39;re right and it would make a nice gem. Mostly to make it easier to define selectors and attributes, and make a bunch of convenience methods (like the enumerable methods).<br /><br />Also, I am planning on bundling some assertions with the gem, which will take advantage of capybara&#39;s automatic delay on failed assertions. I&#39;ll post on this blog soon when it is released.<br /><br />-Nick</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+This has been released as a Gem, and the syntax is changed a bit:<br /><br />https://github.com/ngauthier/domino</div>
 </div>
 </div>

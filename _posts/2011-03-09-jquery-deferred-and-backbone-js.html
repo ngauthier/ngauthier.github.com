@@ -11,13 +11,13 @@ comments: false
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Cool! Yeah I noticed slideUp didn&#39;t return a promise, so I didn&#39;t know what to do with it.<br /><br />I think I&#39;d still need the _.bind within the done to bind to the object though, right?</div>
-</div>
-<div class='comment'>
 <div class='author'>Julian</div>
 <div class='content'>
 Using jQuery 1.6, you can considerably simplify your method:<br /><br />remove: function() {<br />return<br />$(this.el)<br />.slideUp(200)<br />.promise()<br />.done(function() { this.remove(); });<br />}<br /><br />1.6 adds jQuery.fn.promise() that returns a Promise to observe when a collection has no more animation going on. It&#39;s resolved with the collection is was called on as its context and first &amp; only argument.<br /><br />(sorry for how the code is formatted, Blogger&#39;s comments just plain suck :/)</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+Cool! Yeah I noticed slideUp didn&#39;t return a promise, so I didn&#39;t know what to do with it.<br /><br />I think I&#39;d still need the _.bind within the done to bind to the object though, right?</div>
 </div>
 </div>

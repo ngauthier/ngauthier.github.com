@@ -11,13 +11,13 @@ comments: false
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-You also get the honor of the first reply!<br /><br />While that is convenient, it is not RESTful. The route you described is designed to modify the user resource, not any groups resources.<br /><br />Also, you&#39;re going to go through &quot;error hell&quot; if a bunch of those groups and user attributes are invalid.<br /><br />Doing nested attributes through a controller is trying to squeeze two entire controllers into one. For the sake of simplicity, testing, and maintainability, I&#39;d avoid it.<br /><br />-Nick</div>
-</div>
-<div class='comment'>
 <div class='author'>pjb3</div>
 <div class='content'>
 First of all, let me say that I am honored to be the first commenter on ngauthier.com :)<br /><br />Second, what I would do is push the logic of creating a group down into the controller.  The nested attributes feature of Rails gives you this automatically.  Assuming your User model looks like this:<br /><br />    class User &lt; ActiveRecord::Base<br />      has_many :group_users<br />      has_many :groups, :through =&gt; :group_users<br />  <br />      accepts_nested_attributes_for :groups<br />    end<br /><br />Then the controller goes back to having just two paths, because user.save will take care of creating the group before creating the group_user.  So when you do:<br /><br />    PUT /users/X/?group_attributes[][name]=&quot;My Group&quot;<br /><br />this would happen:<br /><br />    user.update_attributes :groups_attributes =&gt; [{:name =&gt; &quot;My Group&quot;}]<br />      # =&gt; INSERT INTO &quot;groups&quot; (&quot;name&quot;) VALUES (&#39;My Group&#39;)<br />      # =&gt; INSERT INTO &quot;group_memberships&quot; (&quot;group_id&quot;, &quot;user_id&quot;) VALUES (1, 1)</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+You also get the honor of the first reply!<br /><br />While that is convenient, it is not RESTful. The route you described is designed to modify the user resource, not any groups resources.<br /><br />Also, you&#39;re going to go through &quot;error hell&quot; if a bunch of those groups and user attributes are invalid.<br /><br />Doing nested attributes through a controller is trying to squeeze two entire controllers into one. For the sake of simplicity, testing, and maintainability, I&#39;d avoid it.<br /><br />-Nick</div>
 </div>
 </div>

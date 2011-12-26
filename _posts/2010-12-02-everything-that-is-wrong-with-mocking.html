@@ -13,172 +13,7 @@ comments: false
 <div class='comment'>
 <div class='author'>dchelimsky</div>
 <div class='content'>
-Well you&#39;ve got me there. This is clearly a bad excerpt and I&#39;ll have it changed soon. I hope you&#39;ll consider reading the rest of the tutorial in spite of the excerpt. I&#39;d welcome your feedback.<br /><br />I think we have the same goals in terms of deepening the understanding of when/where to use different tools. I don&#39;t think we agree on everything here (I don&#39;t &quot;always&quot; prefer anything), but I think we probably agree on more than we disagree on.<br /><br />Cheers,<br />David</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@dchelimksy no, I&#39;m not saying stop using ruby. I&#39;m not saying stop using morphine in hospitals either.<br /><br />It&#39;s more of an education perspective. I want to show people how they should and should not use tools so they don&#39;t dig themselves into a hole.<br /><br /><br />I think we&#39;re in agreement that when a collaborator&#39;s interface is well defined and stable that mocking is a good solution.<br /><br />The problem is that whenever I see examples of mocking it&#39;s always in (what I deem to be) inappropriate scenarios.<br /><br />If you showed a reporter class with a simple API of reporting messages, then showed the Codebreaker class working with a mocked Reporter, I&#39;d be much happier with your example. I worry about a generation of rubyist who will mock their test suite to hell and then be stuck in a broken world.<br /><br />Of course, anyone can write bad code in any framework, but I want to teach people the appropriate uses with solid examples.<br /><br />I was very disappointed to see this example in the excerpts of the rspec book, because I&#39;ve had to refactor and fix code like that and it&#39;s not fun.</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-@Nick - &quot;but what if a particular tool can be easily misused? In the best of hands, it is revolutionary and powerful, but in most people&#39;s hands it&#39;s destructive. For example, morphine.&quot;<br /><br />By that logic, we should all stop using Ruby :)<br /><br />re: the &quot;sorted users&quot; example, I agree that is likely better specified with a more black box approach.<br /><br />The distinction is that, in the sorted users example, the User class returns the object (a list of users) on which expected outcomes can be specified.<br /><br />In the output example, the outcome is specified _on a collaborator_. Whether we specify that as an interaction or post-action state-based verification, the example is still bound to the collaborator object, so there is little difference in terms of dependencies and brittleness.<br /><br />Using a test double for &quot;reporter&quot; gives us the freedom to introduce different &quot;reporter&quot; solutions (command line, text file, web page, etc) without these examples failing. In that context, the use of a test double and a message expectation is actually less brittle than the alternatives.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@dchelimsky I think the underlying concept still stands.<br /><br />A mocking unit testing strategy encourages testing the implementation of a method because it&#39;s easy. My argument is that it doesn&#39;t get you very much in the way of code validation.<br /><br />When I write tests, I think about the effects of my code, and then I validate that the effects occurred.<br /><br />For example, consider testing user registration. Which of these scenarios below is most useful?<br /><br />When I register on the site<br /><br />=&gt;<br /><br />1) Then the database should be asked to insert a user<br />2) Then there should be 50 users<br />3) Then there should be an additional user<br />4) Then I can log in<br /><br />I like #4, because it focuses on the input and the ultimately desired result and goal of a feature. This user-acceptance, and not unit testing.<br /><br />But in unit testing I like to focus on the same goals and ask the same questions.<br /><br />For example, if I&#39;m implementing a &quot;users sorted by join date&quot; method, I can see two ways of going about it:<br /><br />1) Mock the user model and ensure that the storage adapter is called with the appropriate method and parameters to return a sorted list of users.<br />2) Create a couple of users, call the method, and see if the results are sorted.<br /><br />#1 is white-box and #2 is black box. I&#39;ll pick black box every time because it focuses on my goals, and not my process.<br /><br /><br /><br />Regarding the tweets:<br /><br />Yes, it&#39;s easy to blame the tools, but what if a particular tool can be easily misused? In the best of hands, it is revolutionary and powerful, but in most people&#39;s hands it&#39;s destructive. For example, morphine.<br /><br />I think mocking is being abused and overused and is causing people pain in the long run. It&#39;s enticing because its simple to implement, but I find the assertions it makes to be weak and brittle.<br /><br />I will agree, however, that in cases where you have a stable API that mocking can make your life easier (especially in large and complicated codebases). However, I&#39;ve always found that it&#39;s not that hard to create helper methods to setup elaborate scenarios in which to do a real goal-based test. There are great gems out there like cucumber and factory girl that allow you to encapsulate complicated functionality in simple steps.</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-@Nick - a page or two later in the book we add &quot;as_null_object&quot; to the double, and the need for an elaborate mocking setup is eliminated.<br /><br />That said, we&#39;ve all been missing the deeper problem here, which was recognized immediately by Nat Pryce and reflected in these two tweets:<br /><br />http://twitter.com/natpryce/status/12029918607048704<br /><br />http://twitter.com/natpryce/status/12030541293424641<br /><br />We&#39;ve been talking about pain in the example, but none of us have &quot;listened to the test&quot;. The real problem here is that there is a missing abstraction. Change &quot;output&quot; to &quot;reporter&quot; (or similar) and change &quot;puts&quot; to &quot;message&quot; (or similar) and the refactoring concern you raised goes away, everything is &quot;speaking&quot; in the domain, and all is right with the world.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@Pat ah you&#39;re right, since it&#39;s a double it will complain about extra method calls. This is why mocking becomes annoying when your method does a few things with its input. Any test will need an elaborate mocking setup.</div>
-</div>
-<div class='comment'>
-<div class='author'>Pat Maddox</div>
-<div class='content'>
-Can you please gist a file that demonstrates that the spec passes even when you include the insulting message to the user?  Here&#39;s what I got: https://gist.github.com/730609</div>
-</div>
-<div class='comment'>
-<div class='author'>Sean DeNigris</div>
-<div class='content'>
-Of course, none of these pitfalls have anything to do with BDD or RSpec.  Just saying...</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-@zenspider - that works assuming you have a test named test_start_output and it&#39;s the only test ever written that cares about the output of the start() method. As soon as additional context requires that start provide different output under different conditions, either this test would start to get unruly (too many states/assertions), or new tests would emerge that, in making them to pass, might cause this one to break.<br /><br />re: the rspec code and &quot;once&quot; - in fact, it breaks just 2 or 3 pages later in the book, and a wonderful learning opportunity emerges. Hooray for examples taken out of context!</div>
-</div>
-<div class='comment'>
-<div class='author'>myron.marston</div>
-<div class='content'>
-@Evan:  Re: &quot;Can you give an example of one of your fragile pre-test double tests?&quot;<br /><br />The code base I&#39;m thinking of was a rails app, and simple changes to models (i.e. adding a new required field or changing a validation) would cascade across the test suite and break lots of other tests because those tests depended on the existing behavior of the model when they shouldn&#39;t have.  For example, a controller functional test that passed in valid attributes and would assert some result failed because the passed attributes were no longer valid.  You may argue that the breaking controller test was a good thing, but I don&#39;t agree.  I like to have lots of fast, isolated unit tests (which do use mocking carefully), as well as some full-stack integration tests (which don&#39;t use mocking).  In this case, a change to a model my break a unit test and an integration test, but it&#39;s not going to cascade across my test suite.<br /><br />Having controller tests that depended on the knowledge of what constituted a valid record was a very brittle approach.  Mocking has worked well to help me unit test my controllers.</div>
-</div>
-<div class='comment'>
-<div class='author'>zenspider</div>
-<div class='content'>
-@ngauthier:<br /><br />Via minitest (or test/unit in 1.9):<br /><br />    def test_start_output<br />      assert_output &quot;Welcome to Codebreaker!\n&quot;, &quot;&quot; do<br />        Game.new.start<br />      end<br />    end<br /><br />(blogger.... you suck. no pre tag allowed? no formatting help? bite me)<br /><br />@dchelimsky: the rspec code would break too because EVERYONE uses .once. And remember, since we do test-first, it wouldn&#39;t break because we changed the output, it&#39;d break because we added additional assertions to the test that we then needed to make pass. That isn&#39;t brittle. That&#39;s process.</div>
-</div>
-<div class='comment'>
-<div class='author'>Evan Light</div>
-<div class='content'>
-@David: I&#39;m familiar with that practice RE: APIs.  You took me a little too literally.  I always abstract them a level.<br /><br />I&#39;ll have to take another gander at the (finally ;-) ) completed RSpec book. I bought the beta a very long time ago and haven&#39;t read it much since.  I&#39;m curious about what you have to say about mocking.<br /><br />However, I&#39;ve generally found white box testing to be too implementation specific.  Granted, I realize that there are almost &quot;camps&quot; among TDD&#39;ers: the &#39;behavioral statists&#39; that I likely fall under, the &#39;unit mockists&#39; that you likely fall under, and others.  I tend to prefer writing acceptance/integration tests with only supporting unit tests as necessary to help me &quot;fill in the gaps&quot; where the feature is too complex to develop without unit tests to handle complex logic (see http://evan.tiggerpalace.com/articles/2010/12/02/stop-writing-code-you-dont-need/).</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-If I had to change the title, it would be expanded to &quot;Everything that is wrong with how everyone uses mocks in rspec to do bdd&quot;<br /><br />Every time I&#39;ve encountered mocking in test code (aside from 3rd party calls) I&#39;ve seen it fall under the category of the content of this post.<br /><br />While you describe a sound way to use mocks to test object behavior, I have never seen it executed properly. This is not to say it cannot be done, but that everyone is doing it wrong.<br /><br />And yeah, you can&#39;t defeat the cargo-cult.</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-@nickgauthier - I appreciate wanting to help people understand the subtle waters of mocking. Unfortunately, the title of this post is not in any way nuanced or subtle. If your target audience is people who blindly copy examples without thinking about their implications or trying to learn to understand them, it&#39;s likely that they won&#39;t actually read this full post, much less the thoughtful discussion that follows.</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-&quot;To sum it up, I interpreted this as an acceptance test.&quot;<br /><br />Part of the aim of the book is to make a distinction between application and object behavior: Cucumber is well suited to specify things at the application level (end to end tests/acceptance tests/customer tests, etc), and RSpec is well suited to specify things at the object level (unit tests, micro tests, developer tests, etc).<br /><br />The example you cite comes from a chapter on describing the behavior of objects with RSpec (i.e. unit tests), after a chapter on describing the behavior of applications with Cucumber (i.e. acceptance tests), and is not at all intended to be an acceptance test. Hope that clears at least that part of this up for you.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@dchelimsky<br /><br />I read your slides from rubyconf and I agree with your stance on mocking. However about 95% of people that copy rspec examples don&#39;t understand the implications and often code themselves into mocking hell. They are my target audience :-)</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-Evan - there is a chapter in The RSpec Book on Mock Objects that talks about when to use them and the potential pitfalls (including the one that Nick brings up here).<br /><br />Mocking external dependencies is actually considered to be a mocking no-no, because then you create a binding between your app and the external dependency&#39;s API. Instead, write a thin wrapper around that dependency that speaks in the domain of your app, and mock that as a means of isolating your app&#39;s code/specs from that dependency.<br /><br />But that is only the tip of the iceberg when it comes to use cases served well by mocks. Others include: non-deterministic collaborators (intentionally random behavior) of collaborators), polymorphic collaborators (no need to have 3 examples when 1 would do), protocol definitions (where which methods are called represent adherence to a contract), collaborators that don&#39;t even exist yet, etc, etc.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-haha thanks @admin.<br /><br />@Pat I understand that is the case when you are unit testing between collaborators where specific method invocation is important. However in the example I used, it was clear to me that the caller was not a collaborator but a higher level controller or supervisor. Actors at a higher level of abstraction should not be concerned with the implementation details but rather the results.<br /><br />To sum it up, I interpreted this as an acceptance test.</div>
-</div>
-<div class='comment'>
-<div class='author'>admin</div>
-<div class='content'>
-tl;dr of Pat&#39;s comment: I&#39;mma let you finish, but the difference between unit tests and acceptance tests is one of the best differences of all time.</div>
-</div>
-<div class='comment'>
-<div class='author'>Pat Maddox</div>
-<div class='content'>
-The mock-based example specifies the interaction with the collaborator.  It demonstrates that you can pass in any object that responds to #puts(str) and expect it to work.<br /><br />Your refactoring is valid -- when the output object responds to #puts, #write, #print, and #&lt;&lt;, and implements them all in basically the same way.<br /><br />You are free to change the internals of a method however you want, but remember that certain changes will have broader-reaching effects than others.  Changing how you build up the string to, say, an array of strings that then get joined, should certainly be encapsulated.  Changing how you call collaborators is a totally different thing -- you&#39;re changing the contract, potentially in a way that&#39;s incompatible with existing clients.<br /><br />Focused examples (or unit tests, or microtests, or whatever) help answer the question, &quot;what do I need to know to use this code?&quot;  When there is a collaborator involved, one of the key things to know is the protocol that the collaborator must adhere to.  An interaction-based example makes that protocol explicit.  Moreover, it establishes a checkpoint.  Should you decide to call #write instead of #puts, you have to consider the possible implications to existing code.<br /><br />I understand where you&#39;re coming from.  When you run the program, there is no externally visible difference in behavior.  That is why we tend to separate the duties of checking program behavior into acceptance tests.  Your unit tests then become a place for you to check an object&#39;s correctness, which includes its own logic and its interactions with other objects.  Don&#39;t assume that because the external behavior of the program stays the same, that the behavior internal to objects has stayed the same as well.</div>
-</div>
-<div class='comment'>
-<div class='author'>tooky</div>
-<div class='content'>
-If you are using mocks and stubs in your unit tests then you need to have a good set of acceptance/integration tests as well.<br /><br />I like using mocks and stubs in my unit tests as they allow me to isolate the area of the code I&#39;m working in, and I don&#39;t have to worry about side-effects or complex set-up of other objects. I also use cucumber though, this gives me great black-box coverage of the system.<br /><br />So while changing the original example will make this spec break, it won&#39;t make any other specs in the system break, because no other specs will depend on its behaviour. So long as the behaviour is preserved it won&#39;t break the acceptance/integration tests either.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick</div>
-<div class='content'>
-&gt; Continuously asking &quot;What am I testing and why am I testing it&quot; is very important to writing good code and good tests.<br /><br />Hear hear!</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-@Jim @Nick<br /><br />I totally agree. What I dislike is the tendency for people to write a test against methods being called, when that is almost always not what is important in the test.<br /><br />Continuously asking &quot;What am I testing and why am I testing it&quot; is very important to writing good code and good tests.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick</div>
-<div class='content'>
-I completely agree with Jim. It comes down to what behaviour is important, and thus needs to be tested.<br /><br />If Codebreaker only cares that @output begins with &quot;Welcome to Codebreaker!&quot;, then Nick Gauthier&#39;s approach is ideal.<br /><br />If Codebreaker relies on #puts being called on @output , then the &quot;bad test&quot; is ideal.<br /><br />As always, everything&#39;s contextual: what&#39;s important to you?</div>
-</div>
-<div class='comment'>
-<div class='author'>Jim Gay</div>
-<div class='content'>
-I agree. If you&#39;re doing should_receive(:puts) then you&#39;re saying that calling &quot;puts&quot; is important.<br /><br />All of this is behavior of the code, you just need to spec what behavior is important: the methods called, or the output. Sometimes it might be important that a method is called, but not in this situation.</div>
-</div>
-<div class='comment'>
-<div class='author'>Evan Light</div>
-<div class='content'>
-@Myron: How were your tests more brittle before introducing test doubles?  <br /><br />If you&#39;re test has clear preconditions, execution of the code under test, and clear expectations, I don&#39;t see how that leads to brittleness.<br /><br />Can you give an example of one of your fragile pre-test double tests?</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Test suite speed is not a valid argument for mocking.<br /><br />http://grease-your-suite.heroku.com/</div>
-</div>
-<div class='comment'>
-<div class='author'>myron.marston</div>
-<div class='content'>
-Careless mocking can definitely make a test suite excessively brittle, but my overall experience with mocking has been the opposite.  I used to practice a more classical TDD approach, where I used little-to-no-mocking and I wound up with bloated, slow, brittle test suites.  After experimenting a bit and reading the RSpec book, I&#39;ve started using mocking as a regular technique to achieve isolation in my unit tests and it&#39;s helped me create far less brittle test suites (not to mention they are much, much faster!). <br /><br />It&#39;s definitely easy to shoot yourself in the foot with mocking (just like it is with ruby, git, or any of our other standard, powerful tools we use daily), but that doesn&#39;t mean it&#39;s not a useful, worthwhile tool: you just have to be aware of the dangers of over-mocking and mock with care.</div>
-</div>
-<div class='comment'>
-<div class='author'>Evan Light</div>
-<div class='content'>
-David: While Nick&#39;s test may have been brittle, at least the test would have failed as expected.  Should the output string change, his test test fails.  Should the implementation use print, his test fails.<br /><br />The failure of the test is adequate to ensure that the test is revisited and updated.<br /><br />Honestly, I admire so much of what you have done for the Ruby community.  However, your tenacious adherence to mocking and stubbing as a routine TDD technique still utterly bewilders me.  The brittleness of the resulting test hardly seems worth the benefit in almost any case except the rare external dependency.</div>
-</div>
-<div class='comment'>
-<div class='author'>Evan Light</div>
-<div class='content'>
-Agreed -- including that perhaps you should be using an &quot;assert output.read =~ //.<br /><br />This is why, as a general rule, I have learned to largely avoid mocking and stubbing unless I am writing unit tests against an external system.<br /><br />Yes, test doubles are great for isolating the unit under test.  However, that isolation comes at a cost.  <br /><br />Should an external dependency change, your test doubled tests will lie to you!  The test double is blissfuly unaware that the interface it has doubled has changed.  Therefore, your test will inaccurately pass.  Under such circumstances, I want my tests to fail loudly!<br /><br />In my experience, this has resulted in significant time lost tracking down production application problems!<br /><br />TL;DR White-box testing coupled with test doubles is dangerous.  I strongly prefer an integration test that exercises the external dependency.</div>
-</div>
-<div class='comment'>
-<div class='author'>jollyjerry</div>
-<div class='content'>
-I definitely agree with your point that mocking and stubbing can easily be taken too far.  What I hate the most is when I see an entire chain of internal implementation stubbed out (foo.hidden.internal.method.baz).  It ends up coupling your tests to your implementation, and since tests are also code, you make your code spaghetti that much more tangled.  I&#39;m just as guilty as the next guy when it comes to thinking abstractly about what the functionality should be, rather than reduplicating my code in test form.  Like dchelimsky said, it&#39;s a hard problem!</div>
-</div>
-<div class='comment'>
-<div class='author'>jyurek</div>
-<div class='content'>
-Extended or replaced, the behavior *changed*, and that&#39;s what tests are meant to detect, after all.<br /><br />I think Nick&#39;s example highlights exactly why overmocking is a bad thing. IMO, I don&#39;t think this is a failure (per se) of BDD, RSpec, or even Mocking as a concept, it&#39;s just not the best test for the situation.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-Yeah I agree. It depends on how much you want to assert. I was considering doing it as a regex match. I decided that I wanted to asset that the method output the exact message, no more and no less. It could be a looser test, and allow for other tests to check other behaviors.<br /><br />I probably would do that in practice when I added more behavior to the method.<br /><br />Decisions that aren&#39;t trade-offs never instigate an interesting debate.</div>
-</div>
-<div class='comment'>
-<div class='author'>dchelimsky</div>
-<div class='content'>
-It&#39;s behavior has been _extended_. If the existing message changed, that would be one thing, but the fact that there is an additional side-effect of calling start() should not cause this expectation to fail.<br /><br />The issue here is that the behavior of the start() method is reflected in another object. Both examples inspect the collaborator to specify the outcome. Both have constraints that will cause future failures depending on how things change.<br /><br />You could probably make something more flexible by using assert_match instead of assert_equal, but that wouldn&#39;t protect against a mean-spirited developer insulting users. Again, it&#39;s all trade-offs. Pick your poison.</div>
+The test you propose will fail as soon as an additional message (praising the user?) needs to be displayed in response to start(), so it, too, is brittle due to its constraints. It&#39;s all trade-offs, my friend.<br /><br />But thanks for promoting the book!</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
@@ -188,6 +23,171 @@ Of course it will fail, because it is a spec on the start method, whose behavior
 <div class='comment'>
 <div class='author'>dchelimsky</div>
 <div class='content'>
-The test you propose will fail as soon as an additional message (praising the user?) needs to be displayed in response to start(), so it, too, is brittle due to its constraints. It&#39;s all trade-offs, my friend.<br /><br />But thanks for promoting the book!</div>
+It&#39;s behavior has been _extended_. If the existing message changed, that would be one thing, but the fact that there is an additional side-effect of calling start() should not cause this expectation to fail.<br /><br />The issue here is that the behavior of the start() method is reflected in another object. Both examples inspect the collaborator to specify the outcome. Both have constraints that will cause future failures depending on how things change.<br /><br />You could probably make something more flexible by using assert_match instead of assert_equal, but that wouldn&#39;t protect against a mean-spirited developer insulting users. Again, it&#39;s all trade-offs. Pick your poison.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+Yeah I agree. It depends on how much you want to assert. I was considering doing it as a regex match. I decided that I wanted to asset that the method output the exact message, no more and no less. It could be a looser test, and allow for other tests to check other behaviors.<br /><br />I probably would do that in practice when I added more behavior to the method.<br /><br />Decisions that aren&#39;t trade-offs never instigate an interesting debate.</div>
+</div>
+<div class='comment'>
+<div class='author'>jyurek</div>
+<div class='content'>
+Extended or replaced, the behavior *changed*, and that&#39;s what tests are meant to detect, after all.<br /><br />I think Nick&#39;s example highlights exactly why overmocking is a bad thing. IMO, I don&#39;t think this is a failure (per se) of BDD, RSpec, or even Mocking as a concept, it&#39;s just not the best test for the situation.</div>
+</div>
+<div class='comment'>
+<div class='author'>jollyjerry</div>
+<div class='content'>
+I definitely agree with your point that mocking and stubbing can easily be taken too far.  What I hate the most is when I see an entire chain of internal implementation stubbed out (foo.hidden.internal.method.baz).  It ends up coupling your tests to your implementation, and since tests are also code, you make your code spaghetti that much more tangled.  I&#39;m just as guilty as the next guy when it comes to thinking abstractly about what the functionality should be, rather than reduplicating my code in test form.  Like dchelimsky said, it&#39;s a hard problem!</div>
+</div>
+<div class='comment'>
+<div class='author'>Evan Light</div>
+<div class='content'>
+Agreed -- including that perhaps you should be using an &quot;assert output.read =~ //.<br /><br />This is why, as a general rule, I have learned to largely avoid mocking and stubbing unless I am writing unit tests against an external system.<br /><br />Yes, test doubles are great for isolating the unit under test.  However, that isolation comes at a cost.  <br /><br />Should an external dependency change, your test doubled tests will lie to you!  The test double is blissfuly unaware that the interface it has doubled has changed.  Therefore, your test will inaccurately pass.  Under such circumstances, I want my tests to fail loudly!<br /><br />In my experience, this has resulted in significant time lost tracking down production application problems!<br /><br />TL;DR White-box testing coupled with test doubles is dangerous.  I strongly prefer an integration test that exercises the external dependency.</div>
+</div>
+<div class='comment'>
+<div class='author'>Evan Light</div>
+<div class='content'>
+David: While Nick&#39;s test may have been brittle, at least the test would have failed as expected.  Should the output string change, his test test fails.  Should the implementation use print, his test fails.<br /><br />The failure of the test is adequate to ensure that the test is revisited and updated.<br /><br />Honestly, I admire so much of what you have done for the Ruby community.  However, your tenacious adherence to mocking and stubbing as a routine TDD technique still utterly bewilders me.  The brittleness of the resulting test hardly seems worth the benefit in almost any case except the rare external dependency.</div>
+</div>
+<div class='comment'>
+<div class='author'>myron.marston</div>
+<div class='content'>
+Careless mocking can definitely make a test suite excessively brittle, but my overall experience with mocking has been the opposite.  I used to practice a more classical TDD approach, where I used little-to-no-mocking and I wound up with bloated, slow, brittle test suites.  After experimenting a bit and reading the RSpec book, I&#39;ve started using mocking as a regular technique to achieve isolation in my unit tests and it&#39;s helped me create far less brittle test suites (not to mention they are much, much faster!). <br /><br />It&#39;s definitely easy to shoot yourself in the foot with mocking (just like it is with ruby, git, or any of our other standard, powerful tools we use daily), but that doesn&#39;t mean it&#39;s not a useful, worthwhile tool: you just have to be aware of the dangers of over-mocking and mock with care.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+Test suite speed is not a valid argument for mocking.<br /><br />http://grease-your-suite.heroku.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Evan Light</div>
+<div class='content'>
+@Myron: How were your tests more brittle before introducing test doubles?  <br /><br />If you&#39;re test has clear preconditions, execution of the code under test, and clear expectations, I don&#39;t see how that leads to brittleness.<br /><br />Can you give an example of one of your fragile pre-test double tests?</div>
+</div>
+<div class='comment'>
+<div class='author'>Jim Gay</div>
+<div class='content'>
+I agree. If you&#39;re doing should_receive(:puts) then you&#39;re saying that calling &quot;puts&quot; is important.<br /><br />All of this is behavior of the code, you just need to spec what behavior is important: the methods called, or the output. Sometimes it might be important that a method is called, but not in this situation.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick</div>
+<div class='content'>
+I completely agree with Jim. It comes down to what behaviour is important, and thus needs to be tested.<br /><br />If Codebreaker only cares that @output begins with &quot;Welcome to Codebreaker!&quot;, then Nick Gauthier&#39;s approach is ideal.<br /><br />If Codebreaker relies on #puts being called on @output , then the &quot;bad test&quot; is ideal.<br /><br />As always, everything&#39;s contextual: what&#39;s important to you?</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@Jim @Nick<br /><br />I totally agree. What I dislike is the tendency for people to write a test against methods being called, when that is almost always not what is important in the test.<br /><br />Continuously asking &quot;What am I testing and why am I testing it&quot; is very important to writing good code and good tests.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick</div>
+<div class='content'>
+&gt; Continuously asking &quot;What am I testing and why am I testing it&quot; is very important to writing good code and good tests.<br /><br />Hear hear!</div>
+</div>
+<div class='comment'>
+<div class='author'>tooky</div>
+<div class='content'>
+If you are using mocks and stubs in your unit tests then you need to have a good set of acceptance/integration tests as well.<br /><br />I like using mocks and stubs in my unit tests as they allow me to isolate the area of the code I&#39;m working in, and I don&#39;t have to worry about side-effects or complex set-up of other objects. I also use cucumber though, this gives me great black-box coverage of the system.<br /><br />So while changing the original example will make this spec break, it won&#39;t make any other specs in the system break, because no other specs will depend on its behaviour. So long as the behaviour is preserved it won&#39;t break the acceptance/integration tests either.</div>
+</div>
+<div class='comment'>
+<div class='author'>Pat Maddox</div>
+<div class='content'>
+The mock-based example specifies the interaction with the collaborator.  It demonstrates that you can pass in any object that responds to #puts(str) and expect it to work.<br /><br />Your refactoring is valid -- when the output object responds to #puts, #write, #print, and #&lt;&lt;, and implements them all in basically the same way.<br /><br />You are free to change the internals of a method however you want, but remember that certain changes will have broader-reaching effects than others.  Changing how you build up the string to, say, an array of strings that then get joined, should certainly be encapsulated.  Changing how you call collaborators is a totally different thing -- you&#39;re changing the contract, potentially in a way that&#39;s incompatible with existing clients.<br /><br />Focused examples (or unit tests, or microtests, or whatever) help answer the question, &quot;what do I need to know to use this code?&quot;  When there is a collaborator involved, one of the key things to know is the protocol that the collaborator must adhere to.  An interaction-based example makes that protocol explicit.  Moreover, it establishes a checkpoint.  Should you decide to call #write instead of #puts, you have to consider the possible implications to existing code.<br /><br />I understand where you&#39;re coming from.  When you run the program, there is no externally visible difference in behavior.  That is why we tend to separate the duties of checking program behavior into acceptance tests.  Your unit tests then become a place for you to check an object&#39;s correctness, which includes its own logic and its interactions with other objects.  Don&#39;t assume that because the external behavior of the program stays the same, that the behavior internal to objects has stayed the same as well.</div>
+</div>
+<div class='comment'>
+<div class='author'>admin</div>
+<div class='content'>
+tl;dr of Pat&#39;s comment: I&#39;mma let you finish, but the difference between unit tests and acceptance tests is one of the best differences of all time.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+haha thanks @admin.<br /><br />@Pat I understand that is the case when you are unit testing between collaborators where specific method invocation is important. However in the example I used, it was clear to me that the caller was not a collaborator but a higher level controller or supervisor. Actors at a higher level of abstraction should not be concerned with the implementation details but rather the results.<br /><br />To sum it up, I interpreted this as an acceptance test.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+Evan - there is a chapter in The RSpec Book on Mock Objects that talks about when to use them and the potential pitfalls (including the one that Nick brings up here).<br /><br />Mocking external dependencies is actually considered to be a mocking no-no, because then you create a binding between your app and the external dependency&#39;s API. Instead, write a thin wrapper around that dependency that speaks in the domain of your app, and mock that as a means of isolating your app&#39;s code/specs from that dependency.<br /><br />But that is only the tip of the iceberg when it comes to use cases served well by mocks. Others include: non-deterministic collaborators (intentionally random behavior) of collaborators), polymorphic collaborators (no need to have 3 examples when 1 would do), protocol definitions (where which methods are called represent adherence to a contract), collaborators that don&#39;t even exist yet, etc, etc.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@dchelimsky<br /><br />I read your slides from rubyconf and I agree with your stance on mocking. However about 95% of people that copy rspec examples don&#39;t understand the implications and often code themselves into mocking hell. They are my target audience :-)</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+&quot;To sum it up, I interpreted this as an acceptance test.&quot;<br /><br />Part of the aim of the book is to make a distinction between application and object behavior: Cucumber is well suited to specify things at the application level (end to end tests/acceptance tests/customer tests, etc), and RSpec is well suited to specify things at the object level (unit tests, micro tests, developer tests, etc).<br /><br />The example you cite comes from a chapter on describing the behavior of objects with RSpec (i.e. unit tests), after a chapter on describing the behavior of applications with Cucumber (i.e. acceptance tests), and is not at all intended to be an acceptance test. Hope that clears at least that part of this up for you.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+@nickgauthier - I appreciate wanting to help people understand the subtle waters of mocking. Unfortunately, the title of this post is not in any way nuanced or subtle. If your target audience is people who blindly copy examples without thinking about their implications or trying to learn to understand them, it&#39;s likely that they won&#39;t actually read this full post, much less the thoughtful discussion that follows.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+If I had to change the title, it would be expanded to &quot;Everything that is wrong with how everyone uses mocks in rspec to do bdd&quot;<br /><br />Every time I&#39;ve encountered mocking in test code (aside from 3rd party calls) I&#39;ve seen it fall under the category of the content of this post.<br /><br />While you describe a sound way to use mocks to test object behavior, I have never seen it executed properly. This is not to say it cannot be done, but that everyone is doing it wrong.<br /><br />And yeah, you can&#39;t defeat the cargo-cult.</div>
+</div>
+<div class='comment'>
+<div class='author'>Evan Light</div>
+<div class='content'>
+@David: I&#39;m familiar with that practice RE: APIs.  You took me a little too literally.  I always abstract them a level.<br /><br />I&#39;ll have to take another gander at the (finally ;-) ) completed RSpec book. I bought the beta a very long time ago and haven&#39;t read it much since.  I&#39;m curious about what you have to say about mocking.<br /><br />However, I&#39;ve generally found white box testing to be too implementation specific.  Granted, I realize that there are almost &quot;camps&quot; among TDD&#39;ers: the &#39;behavioral statists&#39; that I likely fall under, the &#39;unit mockists&#39; that you likely fall under, and others.  I tend to prefer writing acceptance/integration tests with only supporting unit tests as necessary to help me &quot;fill in the gaps&quot; where the feature is too complex to develop without unit tests to handle complex logic (see http://evan.tiggerpalace.com/articles/2010/12/02/stop-writing-code-you-dont-need/).</div>
+</div>
+<div class='comment'>
+<div class='author'>zenspider</div>
+<div class='content'>
+@ngauthier:<br /><br />Via minitest (or test/unit in 1.9):<br /><br />    def test_start_output<br />      assert_output &quot;Welcome to Codebreaker!\n&quot;, &quot;&quot; do<br />        Game.new.start<br />      end<br />    end<br /><br />(blogger.... you suck. no pre tag allowed? no formatting help? bite me)<br /><br />@dchelimsky: the rspec code would break too because EVERYONE uses .once. And remember, since we do test-first, it wouldn&#39;t break because we changed the output, it&#39;d break because we added additional assertions to the test that we then needed to make pass. That isn&#39;t brittle. That&#39;s process.</div>
+</div>
+<div class='comment'>
+<div class='author'>myron.marston</div>
+<div class='content'>
+@Evan:  Re: &quot;Can you give an example of one of your fragile pre-test double tests?&quot;<br /><br />The code base I&#39;m thinking of was a rails app, and simple changes to models (i.e. adding a new required field or changing a validation) would cascade across the test suite and break lots of other tests because those tests depended on the existing behavior of the model when they shouldn&#39;t have.  For example, a controller functional test that passed in valid attributes and would assert some result failed because the passed attributes were no longer valid.  You may argue that the breaking controller test was a good thing, but I don&#39;t agree.  I like to have lots of fast, isolated unit tests (which do use mocking carefully), as well as some full-stack integration tests (which don&#39;t use mocking).  In this case, a change to a model my break a unit test and an integration test, but it&#39;s not going to cascade across my test suite.<br /><br />Having controller tests that depended on the knowledge of what constituted a valid record was a very brittle approach.  Mocking has worked well to help me unit test my controllers.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+@zenspider - that works assuming you have a test named test_start_output and it&#39;s the only test ever written that cares about the output of the start() method. As soon as additional context requires that start provide different output under different conditions, either this test would start to get unruly (too many states/assertions), or new tests would emerge that, in making them to pass, might cause this one to break.<br /><br />re: the rspec code and &quot;once&quot; - in fact, it breaks just 2 or 3 pages later in the book, and a wonderful learning opportunity emerges. Hooray for examples taken out of context!</div>
+</div>
+<div class='comment'>
+<div class='author'>Sean DeNigris</div>
+<div class='content'>
+Of course, none of these pitfalls have anything to do with BDD or RSpec.  Just saying...</div>
+</div>
+<div class='comment'>
+<div class='author'>Pat Maddox</div>
+<div class='content'>
+Can you please gist a file that demonstrates that the spec passes even when you include the insulting message to the user?  Here&#39;s what I got: https://gist.github.com/730609</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@Pat ah you&#39;re right, since it&#39;s a double it will complain about extra method calls. This is why mocking becomes annoying when your method does a few things with its input. Any test will need an elaborate mocking setup.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+@Nick - a page or two later in the book we add &quot;as_null_object&quot; to the double, and the need for an elaborate mocking setup is eliminated.<br /><br />That said, we&#39;ve all been missing the deeper problem here, which was recognized immediately by Nat Pryce and reflected in these two tweets:<br /><br />http://twitter.com/natpryce/status/12029918607048704<br /><br />http://twitter.com/natpryce/status/12030541293424641<br /><br />We&#39;ve been talking about pain in the example, but none of us have &quot;listened to the test&quot;. The real problem here is that there is a missing abstraction. Change &quot;output&quot; to &quot;reporter&quot; (or similar) and change &quot;puts&quot; to &quot;message&quot; (or similar) and the refactoring concern you raised goes away, everything is &quot;speaking&quot; in the domain, and all is right with the world.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@dchelimsky I think the underlying concept still stands.<br /><br />A mocking unit testing strategy encourages testing the implementation of a method because it&#39;s easy. My argument is that it doesn&#39;t get you very much in the way of code validation.<br /><br />When I write tests, I think about the effects of my code, and then I validate that the effects occurred.<br /><br />For example, consider testing user registration. Which of these scenarios below is most useful?<br /><br />When I register on the site<br /><br />=&gt;<br /><br />1) Then the database should be asked to insert a user<br />2) Then there should be 50 users<br />3) Then there should be an additional user<br />4) Then I can log in<br /><br />I like #4, because it focuses on the input and the ultimately desired result and goal of a feature. This user-acceptance, and not unit testing.<br /><br />But in unit testing I like to focus on the same goals and ask the same questions.<br /><br />For example, if I&#39;m implementing a &quot;users sorted by join date&quot; method, I can see two ways of going about it:<br /><br />1) Mock the user model and ensure that the storage adapter is called with the appropriate method and parameters to return a sorted list of users.<br />2) Create a couple of users, call the method, and see if the results are sorted.<br /><br />#1 is white-box and #2 is black box. I&#39;ll pick black box every time because it focuses on my goals, and not my process.<br /><br /><br /><br />Regarding the tweets:<br /><br />Yes, it&#39;s easy to blame the tools, but what if a particular tool can be easily misused? In the best of hands, it is revolutionary and powerful, but in most people&#39;s hands it&#39;s destructive. For example, morphine.<br /><br />I think mocking is being abused and overused and is causing people pain in the long run. It&#39;s enticing because its simple to implement, but I find the assertions it makes to be weak and brittle.<br /><br />I will agree, however, that in cases where you have a stable API that mocking can make your life easier (especially in large and complicated codebases). However, I&#39;ve always found that it&#39;s not that hard to create helper methods to setup elaborate scenarios in which to do a real goal-based test. There are great gems out there like cucumber and factory girl that allow you to encapsulate complicated functionality in simple steps.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+@Nick - &quot;but what if a particular tool can be easily misused? In the best of hands, it is revolutionary and powerful, but in most people&#39;s hands it&#39;s destructive. For example, morphine.&quot;<br /><br />By that logic, we should all stop using Ruby :)<br /><br />re: the &quot;sorted users&quot; example, I agree that is likely better specified with a more black box approach.<br /><br />The distinction is that, in the sorted users example, the User class returns the object (a list of users) on which expected outcomes can be specified.<br /><br />In the output example, the outcome is specified _on a collaborator_. Whether we specify that as an interaction or post-action state-based verification, the example is still bound to the collaborator object, so there is little difference in terms of dependencies and brittleness.<br /><br />Using a test double for &quot;reporter&quot; gives us the freedom to introduce different &quot;reporter&quot; solutions (command line, text file, web page, etc) without these examples failing. In that context, the use of a test double and a message expectation is actually less brittle than the alternatives.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+@dchelimksy no, I&#39;m not saying stop using ruby. I&#39;m not saying stop using morphine in hospitals either.<br /><br />It&#39;s more of an education perspective. I want to show people how they should and should not use tools so they don&#39;t dig themselves into a hole.<br /><br /><br />I think we&#39;re in agreement that when a collaborator&#39;s interface is well defined and stable that mocking is a good solution.<br /><br />The problem is that whenever I see examples of mocking it&#39;s always in (what I deem to be) inappropriate scenarios.<br /><br />If you showed a reporter class with a simple API of reporting messages, then showed the Codebreaker class working with a mocked Reporter, I&#39;d be much happier with your example. I worry about a generation of rubyist who will mock their test suite to hell and then be stuck in a broken world.<br /><br />Of course, anyone can write bad code in any framework, but I want to teach people the appropriate uses with solid examples.<br /><br />I was very disappointed to see this example in the excerpts of the rspec book, because I&#39;ve had to refactor and fix code like that and it&#39;s not fun.</div>
+</div>
+<div class='comment'>
+<div class='author'>dchelimsky</div>
+<div class='content'>
+Well you&#39;ve got me there. This is clearly a bad excerpt and I&#39;ll have it changed soon. I hope you&#39;ll consider reading the rest of the tutorial in spite of the excerpt. I&#39;d welcome your feedback.<br /><br />I think we have the same goals in terms of deepening the understanding of when/where to use different tools. I don&#39;t think we agree on everything here (I don&#39;t &quot;always&quot; prefer anything), but I think we probably agree on more than we disagree on.<br /><br />Cheers,<br />David</div>
 </div>
 </div>

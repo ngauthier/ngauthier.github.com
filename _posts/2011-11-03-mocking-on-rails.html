@@ -11,24 +11,9 @@ comments: false
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-well yeah if you&#39;re using the stock scaffold you don&#39;t need to test it either, since scaffolds are well tested.<br /><br />Mostly just interested because this is the standard way of writing a controller action.<br /><br />As an aside, I&#39;m not a big fan of inherited resources. I prefer scaffolding. Tracking down bugs and determining behavior w/ inherited resources is a pain. I&#39;d rather type it out.</div>
-</div>
-<div class='comment'>
-<div class='author'>Sam Goldman</div>
-<div class='content'>
-This is perhaps an unfairly literal response to a contrived example, but if you are writing controllers like that, another option would be to use a library like inherited_resources, which is already well-tested, and just test the happy path in an integration.</div>
-</div>
-<div class='comment'>
-<div class='author'>Nick Gauthier</div>
-<div class='content'>
-cool.<br /><br />So generally your domain objects play into the controller like:<br /><br />if obj.create(params); head :ok; else; render :json =&gt; obj.errors<br /><br />I&#39;ve been looking more into goliath and it seems to strike a nice balance of rack-like directness (no magic) and also basic HTTP API niceties like content encoding.<br /><br />Personally, I&#39;ve been on an &quot;acceptance test everything no unit tests&quot; kick. It has proven to:<br /><br />1) make very reliable software<br />2) make very slow test suites</div>
-</div>
-<div class='comment'>
 <div class='author'>Greg Moeck</div>
 <div class='content'>
-I personally tend to try and leave that stuff to the adapter to decide what to do with and think of the controller as more of just the way that I receive and send data. That&#39;s why i don&#39;t generally don&#39;t feel the need to unit test them because the controller is just getting all the data relavent to the request and handing it off to the domain to decide what it means. My adapter object will generally then read the parameters and send messages into the domain in the domain&#39;s language according to whatever the parameters mean. This isolates my actual domain objects from changes in the system and allows me to plug in the same domain into another delivery mechanism so long as I write an adapter for it. <br /><br />The more complex side is when the controller then queries the &quot;view side&quot; of the domain to get a response object, which then passes that data to the view, or renders an error or something. This is where my integration sort of tests will sometimes come in if I want to unit test that logic because it is getting complex. <br /><br />I certainly don&#39;t feel like I have this all figured out, and I&#39;m personally excited that people are starting to think more along these lines because I feel like the Rails side of the equation is going to clean up a bit in the immediate future. Sometimes I do feel like Rails is a bit of an overkill though since I can use Rack and accomplish most of what I&#39;m wanting to do with the &quot;web framework&quot; part of my application.</div>
+A good number of people have asked me that question since I wrote the post. My general response is two fold. <br /><br />First, if I&#39;m just doing CRUD reading and writing, I don&#39;t really feel the need to have unit tests for the project, so long as I have end-to-end acceptance tests. The logic in Rails is simple enough that a computer could write it, so I don&#39;t really feel a high degree of risk there.<br /><br />However if I&#39;m dealing with a complex domain then I tend to separate out my domain layer from Rails, and treat my controllers as ports (from Alistair Cockburn&#39;s ports and adapters architecture) into and out of the web. I will have them talk to an adapter within my domain, which is all well encapsulated and heavily unit tested. I generally don&#39;t unit test the controller or the view layer , and just let my end-to-end acceptance tests ensure that everything is plugged together correctly. However if something is particularly hairy I will cover the rails part in an integration test.<br /><br />The basic approach is similar to what Eric Evans calls the &quot;Anticorruption Layer&quot; in Domain Driven Design (page. 366).<br /><br />I&#39;m working on a sample application for an auction house which you can at see at https://github.com/gmoeck/auction_house. There isn&#39;t much to see in the actual domain layer yet, but it will give you a general idea.</div>
 </div>
 <div class='comment'>
 <div class='author'>Nick Gauthier</div>
@@ -38,6 +23,21 @@ awesome, thank you for chiming in. One thing I&#39;ve been mulling over is how m
 <div class='comment'>
 <div class='author'>Greg Moeck</div>
 <div class='content'>
-A good number of people have asked me that question since I wrote the post. My general response is two fold. <br /><br />First, if I&#39;m just doing CRUD reading and writing, I don&#39;t really feel the need to have unit tests for the project, so long as I have end-to-end acceptance tests. The logic in Rails is simple enough that a computer could write it, so I don&#39;t really feel a high degree of risk there.<br /><br />However if I&#39;m dealing with a complex domain then I tend to separate out my domain layer from Rails, and treat my controllers as ports (from Alistair Cockburn&#39;s ports and adapters architecture) into and out of the web. I will have them talk to an adapter within my domain, which is all well encapsulated and heavily unit tested. I generally don&#39;t unit test the controller or the view layer , and just let my end-to-end acceptance tests ensure that everything is plugged together correctly. However if something is particularly hairy I will cover the rails part in an integration test.<br /><br />The basic approach is similar to what Eric Evans calls the &quot;Anticorruption Layer&quot; in Domain Driven Design (page. 366).<br /><br />I&#39;m working on a sample application for an auction house which you can at see at https://github.com/gmoeck/auction_house. There isn&#39;t much to see in the actual domain layer yet, but it will give you a general idea.</div>
+I personally tend to try and leave that stuff to the adapter to decide what to do with and think of the controller as more of just the way that I receive and send data. That&#39;s why i don&#39;t generally don&#39;t feel the need to unit test them because the controller is just getting all the data relavent to the request and handing it off to the domain to decide what it means. My adapter object will generally then read the parameters and send messages into the domain in the domain&#39;s language according to whatever the parameters mean. This isolates my actual domain objects from changes in the system and allows me to plug in the same domain into another delivery mechanism so long as I write an adapter for it. <br /><br />The more complex side is when the controller then queries the &quot;view side&quot; of the domain to get a response object, which then passes that data to the view, or renders an error or something. This is where my integration sort of tests will sometimes come in if I want to unit test that logic because it is getting complex. <br /><br />I certainly don&#39;t feel like I have this all figured out, and I&#39;m personally excited that people are starting to think more along these lines because I feel like the Rails side of the equation is going to clean up a bit in the immediate future. Sometimes I do feel like Rails is a bit of an overkill though since I can use Rack and accomplish most of what I&#39;m wanting to do with the &quot;web framework&quot; part of my application.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+cool.<br /><br />So generally your domain objects play into the controller like:<br /><br />if obj.create(params); head :ok; else; render :json =&gt; obj.errors<br /><br />I&#39;ve been looking more into goliath and it seems to strike a nice balance of rack-like directness (no magic) and also basic HTTP API niceties like content encoding.<br /><br />Personally, I&#39;ve been on an &quot;acceptance test everything no unit tests&quot; kick. It has proven to:<br /><br />1) make very reliable software<br />2) make very slow test suites</div>
+</div>
+<div class='comment'>
+<div class='author'>Sam Goldman</div>
+<div class='content'>
+This is perhaps an unfairly literal response to a contrived example, but if you are writing controllers like that, another option would be to use a library like inherited_resources, which is already well-tested, and just test the happy path in an integration.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nick Gauthier</div>
+<div class='content'>
+well yeah if you&#39;re using the stock scaffold you don&#39;t need to test it either, since scaffolds are well tested.<br /><br />Mostly just interested because this is the standard way of writing a controller action.<br /><br />As an aside, I&#39;m not a big fan of inherited resources. I prefer scaffolding. Tracking down bugs and determining behavior w/ inherited resources is a pain. I&#39;d rather type it out.</div>
 </div>
 </div>
