@@ -3,4 +3,3 @@
 ## TODO
 
 * Styles
-* Header links
