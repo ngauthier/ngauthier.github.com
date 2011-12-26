@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nick Gauthier</title>
+    <title>{{page.title}}</title>
+    <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="/stylesheets/ngauthier.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/prettify.js"></script>
+    <script type="text/javascript">
+      $(prettyPrint);
+    </script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-15043457-1']);
@@ -13,7 +20,7 @@
       })();
     </script>
   </head>
-  <body class='home'>
+  <body>
     {{ content }}
   </body>
 </html>

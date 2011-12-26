@@ -1,39 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{page.title}} - Nick Gauthier</title>
-    <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/prettify.js"></script>
-    <script type="text/javascript">
-      $(prettyPrint);
-    </script>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-15043457-1']);
-      _gaq.push(['_trackPageview']);
+---
+layout: default
+---
+<div class='post'>
+  <h2><a href="/">Nick Gauthier</a></h2>
+  <h1><a href="{{page.url}}">{{page.title}}</a></h1>
+  {{ content }}
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'ngauthier';
       (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
-    </script>
-  </head>
-  <body class='post'>
-    <h2><a href="/">Nick Gauthier</a></h2>
-    <h1><a href="{{page.url}}">{{page.title}}</a></h1>
-    {{ content }}
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = 'ngauthier';
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-  </body>
-</html>
-
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
