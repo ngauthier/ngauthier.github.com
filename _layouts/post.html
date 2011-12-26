@@ -2,9 +2,13 @@
 <html>
   <head>
     <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
+    <script type="text/javascript">
+      $(prettyPrint);
+    </script>
   </head>
-  <body class='post' onload='prettyPrint()'>
+  <body class='post'>
     <h2><a href="/">Nick Gauthier</a></h2>
     <h1><a href="{{page.url}}">{{page.title}}</a></h1>
     {{ content }}
