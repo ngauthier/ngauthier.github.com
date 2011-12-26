@@ -1,0 +1,28 @@
+---
+layout: nil
+author: Nick Gauthier
+email: ngauthier@gmail.com
+root: 'http://ngauthier.com'
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ page.author }}</title>
+  <link href="{{ page.root }}/atom.xml" rel="self"/>
+  <link href="{{ page.root }}/"/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ page.root }}/</id>
+  <author>
+    <name>{{ page.author }}</name>
+    <email>{{ page.email }}</email>
+  </author>
+  
+  {% for post in site.posts %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ page.root }}{{ post.url }}"/>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <id>{{ page.root }}{{ post.id }}</id>
+    <content type="html">{{ post.content | xml_escape }}</content>
+  </entry>
+  {% endfor %}
+</feed>
