@@ -4,8 +4,6 @@ title: Backbone and Rails Forgery Protection
 date: 2011-02-21
 comments: false
 ---
-
-<h1>{{ page.title }}</h1>
 <div class='post'>
 <p>I just had a tough time getting Rails 3 to play nice with Backbone JS, and it turned out to be a simple problem with a simple solution. Backbone was not sending the csrf authenticity token embedded in the page when it sent create/update/delete requests, and Rails was destroying the session when it detected the invalid request.</p><p>Here is all the javascript it took to get Backbone to include the token with all requests:</p><pre class="prettyprint"><br />/* alias away the sync method */<br />Backbone._sync = Backbone.sync;<br /><br />/* define a new sync method */<br />Backbone.sync = function(method, model, success, error) {<br />  /* only need a token for non-get requests */<br />  if (method == 'create' || method == 'update' || method == 'delete') {<br />    /* grab the token from the meta tag rails embeds */<br />    var auth_options = {};<br />    auth_options[$("meta[name='csrf-param']").attr('content')] =<br />                 $("meta[name='csrf-token']").attr('content');<br />    /* set it as a model attribute without triggering events */<br />    model.set(auth_options, {silent: true});<br />  }<br />  /* proxy the call to the old sync method */<br />  return Backbone._sync(method, model, success, error);<br />}<br /></pre><p>Note that this depends on the meta tags being present, which require you to call the helper "csrf_meta_tag" in your rails view for the page (put it in the head).</p></div>
 <h2>Comments</h2>
