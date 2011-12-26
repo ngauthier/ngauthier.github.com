@@ -9,7 +9,7 @@ body {
   width: 800px;
 }
 
-.content {
+#content {
   background-color: #fdfdfd;
   padding: 20px;
 }
