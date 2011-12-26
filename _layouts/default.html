@@ -3,6 +3,7 @@
   <head>
     <title>{{page.title}}</title>
     <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="/stylesheets/bootstrap.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/ngauthier.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
@@ -21,15 +22,26 @@
     </script>
   </head>
   <body>
-    <nav>
-      <a href='/'>Nick Gauthier</a>
-      <a href='http://github.com/ngauthier'>GitHub</a>
-      <a href='http://twitter.com/ngauthier'>Twitter</a>
-      <a href='http://facebook.com/ngauthier'>Facebook</a>
-      <a href='http://shortmail.com/ngauthier'>Shortmail</a>
-      <a href='http://blog.smartlogicsolutions.com/author/ngauthier/'>Nick @ SLS Blog</a>
-      <a href='http://recipeswithbackbone.com'>Recipes with Backbone</a>
+    <nav class='topbar'>
+      <div class='topbar-inner'>
+        <div class='container'>
+          <h3><a href='/'>Nick Gauthier</a></h3>
+          <ul class='nav'>
+            <li><a href='/'>Home</a></li>
+            <li><a href='http://github.com/ngauthier'>GitHub</a></li>
+            <li><a href='http://twitter.com/ngauthier'>Twitter</a></li>
+            <li><a href='http://facebook.com/ngauthier'>Facebook</a></li>
+            <li><a href='http://shortmail.com/ngauthier'>Shortmail</a></li>
+            <li><a href='http://blog.smartlogicsolutions.com/author/ngauthier/'>Nick @ SLS Blog</a></li>
+            <li><a href='http://recipeswithbackbone.com'>Recipes with Backbone</a></li>
+          </ul>
+        </div>
+      </div>
     </nav>
-    {{ content }}
+    <div class='container'>
+      <div class='content'>
+        {{ content }}
+      </div>
+    </div>
   </body>
 </html>
