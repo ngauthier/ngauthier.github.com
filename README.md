@@ -2,7 +2,5 @@
 
 ## TODO
 
-* Google Analytics
 * Styles
-* comments (disqus?)
 * Header links
