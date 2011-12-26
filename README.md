@@ -2,4 +2,4 @@
 
 ## TODO
 
-* Styles
+* RSS (ensure url to feed is the same)
