@@ -36,5 +36,7 @@ ol li, ul li {
   font-weight: bold;
 }
 
-.comments .comment .content {
+ul.nav a.hire {
+  color: #f55;
+  font-weight: bold;
 }
