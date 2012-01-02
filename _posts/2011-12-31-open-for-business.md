@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Open for business
-date: 2011-12-31
+title: Open for Business
+date: 2012-01-02 
 ---
 
 I'm excited to announce that I'm now open for business!
