@@ -9,6 +9,7 @@
     <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/bootstrap.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/ngauthier.css" type="text/css" rel="stylesheet" />
+    <link href="/stylesheets/print.css" type="text/css" rel="stylesheet" media='print' />
     <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
     <script type="text/javascript">
@@ -56,6 +57,7 @@
     </nav>
     <div class='container'>
       <div id='content'>
+        <div class='page-header'><h1><a href="{{page.url}}">{{page.title}}</a></h1></div>
         {{ content }}
       </div>
     </div>

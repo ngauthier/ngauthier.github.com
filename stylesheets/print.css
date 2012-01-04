@@ -1,0 +1,18 @@
+body {
+  padding-top: 0;
+}
+
+#content, .page-header {
+  border: 0;
+  -webkit-border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  border-radius: 0 0 0 0;
+  -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+  -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
