@@ -2,13 +2,27 @@
 layout: default
 title: Nick Gauthier's Blog
 ---
-<p>This is Nick Gauthier's technical blog on ruby, rails, and javascript.</p>
-<h2>Posts</h2>
-<ul class='unstyled'>
-{% for post in site.posts %}
-  <li>
-    {{post.date | date: "%Y-%m-%d"}}:
-    <a href="{{post.url}}">{{post.title}}</a>
-  </li>
-{% endfor %}
-</ul>
+<div class='hero-unit'>
+  <div class='row-fluid'>
+    <div class='span2'>
+      <img src='/images/headshot.jpg'>
+    </div>
+    <div class='span10'>
+      <h1>Hey there!</h1>
+      <p>I'm <strong>Nick Gauthier</strong> and this is my blog.</p>
+      <p>I post about a variety of technical topics like Ruby on Rails, Javascript, and Backbone.js. I'm a freelance web developer based out of Baltimore.</p>
+      <p><a class='btn btn-primary btn-large' href='/2012/01/open-for-business.html'>Hire me &raquo;</a></p>
+    </div>
+  </div>
+</div>
+<div class='posts'>
+  {% for post in site.posts %}
+    {% cycle '<div class="row">', '', '' %}
+      <div class='span4'>
+        <h4>{{post.title}} <small>{{post.date | date: "%Y-%m-%d"}}</small></h4>
+        <p>{{post.content | strip_html | truncate:200 }}</p>
+        <p><a class='btn' href='{{post.url}}'>Read &raquo;</a></p>
+      </div>
+    {% cycle '', '', '</div>' %}
+  {% endfor %}
+</div>

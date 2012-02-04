@@ -26,8 +26,8 @@ Last, but not least, I'm leaving some time open for new projects. I'll be explor
 
 ## Get in touch
 
-If anything above interests you, let's get in touch. I'm **ngauthier** on Twitter, Github, and Gmail, so drop me a line!
+Let's get in touch. I'm **ngauthier** on Twitter, Github, and Gmail, so drop me a line!
 
 ## Availability
 
-<iframe src="https://www.google.com/calendar/b/0/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=570&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=i2d4156i2c7rph1bcsg9rtpe8k%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FNew_York" style=" border-width:0 " width="760" height="570" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://www.google.com/calendar/b/0/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=570&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=i2d4156i2c7rph1bcsg9rtpe8k%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FNew_York" style=" border-width:0 " width="100%" height="570" frameborder="0" scrolling="no"></iframe>

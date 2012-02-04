@@ -7,11 +7,12 @@
     <link rel="alternate" type="application/atom+xml" title="Nick Gauthier - Atom" href="/feeds/posts/default" />
 
     <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
-    <link href="/stylesheets/bootstrap.css" type="text/css" rel="stylesheet" />
+    <link href="/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="/stylesheets/bootstrap-responsive.min.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/ngauthier.css" type="text/css" rel="stylesheet" />
-    <link href="/stylesheets/print.css" type="text/css" rel="stylesheet" media='print' />
     <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(prettyPrint);
     </script>
@@ -34,32 +35,44 @@
     </script>
   </head>
   <body>
-    <nav class='topbar'>
-      <div class='topbar-inner'>
+    <div class='navbar'>
+      <div class='navbar-inner'>
         <div class='container'>
-          <h3><a href='/'>Nick Gauthier</a></h3>
-          <ul class='nav'>
-            <li><a href='/2012/01/open-for-business.html' class='hire'>Hire</a></li>
-            <li><a href='http://github.com/ngauthier'>GitHub</a></li>
-            <li><a href='http://twitter.com/ngauthier'>Twitter</a></li>
-            <li><a href='http://facebook.com/ngauthier'>Facebook</a></li>
-            <li><a href='http://recipeswithbackbone.com'>Recipes with Backbone</a></li>
-            <li>
-              <a href="https://twitter.com/share" class="twitter-share-button" data-via="ngauthier">Tweet</a>
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            </li>
-            <li>
-              <div class="g-plusone" data-size="medium"></div>
-            </li>
-          </ul>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a href='/' class='brand'>Nick Gauthier</a>
+          <div class='nav-collapse'>
+            <ul class='nav'>
+              <li><a href='/2012/01/open-for-business.html' class='hire'>Hire</a></li>
+              <li><a href='http://github.com/ngauthier'>GitHub</a></li>
+              <li><a href='http://twitter.com/ngauthier'>Twitter</a></li>
+              <li><a href='http://facebook.com/ngauthier'>Facebook</a></li>
+              <li><a href='http://recipeswithbackbone.com'>Recipes with Backbone</a></li>
+            </ul>
+            <ul class='nav pull-right'>
+              <li>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="ngauthier">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </li>
+              <li>
+                <div class='google-plusone'>
+                  <div class="g-plusone" data-size="medium"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
     <div class='container'>
       <div id='content'>
-        <div class='page-header'><h1><a href="{{page.url}}">{{page.title}}</a></h1></div>
         {{ content }}
       </div>
     </div>
+    <hr>
+    <footer><p>&copy; Nick Gauthier 2012</p></footer>
   </body>
 </html>
