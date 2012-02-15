@@ -85,6 +85,11 @@ ol li, ul li {
   font-weight: bold;
 }
 
+iframe.youtube {
+  width: 440px;
+  height: 330px;
+}
+
 @media (max-width: 768px) {
   .hero-unit {
     padding: 10px;
@@ -92,9 +97,9 @@ ol li, ul li {
 }
 
 @media (max-width: 480px) {
-}
-
-@media (max-width: 768px) {
+  iframe.youtube {
+    width: 100%;
+    height: 200px;
 }
 
 @media (min-width: 768px) and (max-width: 980px) {
