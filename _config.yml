@@ -1,1 +1,2 @@
 permalink: /:year/:month/:title.html
+markdown: rdiscount
