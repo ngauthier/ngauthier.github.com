@@ -21,9 +21,9 @@ title: Nick Gauthier's Blog
   {% for post in site.posts %}
     {% cycle '<div class="row">', '', '' %}
       <div class='span4'>
-        <h4>{{post.title}} <small>{{post.date | date: "%Y-%m-%d"}}</small></h4>
-        <p>{{post.content | strip_html | truncate:200 }}</p>
-        <p><a class='btn' href='{{post.url}}'>Read &raquo;</a></p>
+        <h4><a href="{{post.url}}">{{post.title}}</a> <small>{{post.date | date: "%Y-%m-%d"}}</small></h4>
+        <p class='preview'>{{post.content | strip_html }}</p>
+        <div class='text-fade'></div>
       </div>
     {% cycle '', '', '</div>' %}
   {% endfor %}
