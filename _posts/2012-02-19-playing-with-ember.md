@@ -203,22 +203,22 @@ After that, the methods are the same. Then when we initialize we give it a dom e
 At this point, I'd like to pull out a refactoring from [Recipes with Backbone](http://recipeswithbackbone.com) from the Fill-In Views chapter. Check this out:
 
 <pre class='prettyprint'>
-Backbone.BoundView = function(options) {
-  Backbone.View.call(this, options)
-  this.model.bind('change', this.updateBoundAttributes, this);
-  this._oldRender = this.render;
-  this.render = function() { this._oldRender(); this.updateBoundAttributes(); };
-}
+/* EDIT: updated to use #constructor. Thanks Tim Branyen! */
+Backbone.BoundView = Backbone.View.extend({
+  constructor: function(options) {
+    Backbone.View.apply(this, arguments);
 
-_.extend(Backbone.BoundView.prototype, Backbone.View.prototype, {
+    this.model.bind('change', this.updateBoundAttributes, this);
+    this._oldRender = this.render;
+    this.render = function() { this._oldRender(); this.updateBoundAttributes(); };
+  },
+
   updateBoundAttributes: function() {
     _(this.bindings).each( function(value, key) {
       this.$(key).html(this.model.get(value))
     }, this);
   }
 });
-
-Backbone.BoundView.extend = Backbone.View.extend;
 </pre>
 
 This `Backbone.BoundView` is a subclass of `Backbone.View` and it uses a `bindings` object to automatically update model attributes on change. That means we can simplify our view to this:
