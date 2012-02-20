@@ -2,15 +2,20 @@ body, h1, h2, h3, h4, h5, h6, h1 a {
   color: #38312b;
 }
 
-h1 a:hover {
-  color: #574c43;
+a, a:hover {
+  color: #945929;
 }
 
-.navbar .brand {
-  color: #f5f1ed;
+body {
+  padding-top: 8px;
 }
 
-.navbar .brand, h1, h2, h3 {
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 12px;
+}
+
+.header, h1, h2, h3 {
   font-family: Arimo,"Helvetica Neue",Helvetica,Arial,sans-serif;
   text-transform: uppercase;
   font-weight: normal;
@@ -60,17 +65,12 @@ h1 a:hover {
 }
 
 .hero-unit {
-  background-color: #f5f1ed;
+  background-color: #e6dacc;
 }
 
 .hero-unit h1 {
   text-transform: none;
   margin-bottom: 8px;
-}
-
-.navbar .nav > li > iframe.twitter-share-button, .navbar .nav > li > .google-plusone {
-  padding: 10px 10px 0;
-  line-height: 19px;
 }
 
 ol li, ul li {
@@ -85,6 +85,57 @@ ol li, ul li {
   font-weight: bold;
 }
 
+iframe.youtube {
+  width: 440px;
+  height: 330px;
+}
+
+.hire p {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.hire .intro, .hire .accomplishments, .hire .consulting, .hire .training, .hire .contact {
+  padding: 20px 20px;
+}
+
+.hire .intro {
+  background-color: #e6dacc;
+  margin-top: 10px;
+  /*
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  */
+}
+
+.hire .accomplishments {
+  background-color: #ded0bf;
+}
+
+.hire .consulting {
+  background-color: #d6c5b2;
+}
+
+.hire .training {
+  background-color: #cfbca5;
+}
+
+.hire .contact {
+  background-color: #c6b198;
+  /*
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  */
+}
+
 @media (max-width: 768px) {
   .hero-unit {
     padding: 10px;
@@ -92,9 +143,10 @@ ol li, ul li {
 }
 
 @media (max-width: 480px) {
-}
-
-@media (max-width: 768px) {
+  iframe.youtube {
+    width: 100%;
+    height: 200px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 980px) {
@@ -104,7 +156,4 @@ ol li, ul li {
 }
 
 @media (min-width: 980px) {
-  body {
-    padding-top: 40px;
-  }
 }

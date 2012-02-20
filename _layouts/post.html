@@ -2,7 +2,9 @@
 layout: default
 ---
 <article>
-  <div class='page-header'><h1><a href="{{page.url}}">{{page.title}}</a></h1></div>
+  <h1><a href="{{page.url}}">{{page.title}}</a></h1>
+  <h2><small>by <a href="/">Nick Gauthier</a> on {{page.date | date: "%Y-%m-%d"}}</small></h2>
+  <hr/>
   {{ content }}
   <div id="disqus_thread"></div>
   <script type="text/javascript">

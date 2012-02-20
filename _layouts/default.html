@@ -19,62 +19,27 @@
     <script type="text/javascript">
       $(prettyPrint);
     </script>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-15043457-1']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
   </head>
   <body>
-    <div class='navbar navbar-fixed-top'>
-      <div class='navbar-inner'>
-        <div class='container'>
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a href='/' class='brand'>NGAUTHIER</a>
-          <div class='nav-collapse'>
-            <ul class='nav'>
-              <li><a href='http://github.com/ngauthier'>GitHub</a></li>
-              <li><a href='http://twitter.com/ngauthier'>Twitter</a></li>
-              <li><a href='http://facebook.com/ngauthier'>Facebook</a></li>
-              <li><a href='http://recipeswithbackbone.com'>Recipes with Backbone</a></li>
-            </ul>
-            <ul class='nav pull-right'>
-              <li>
-                <a href="https://twitter.com/share" class="twitter-share-button" data-via="ngauthier">Tweet</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-              </li>
-              <li>
-                <div class='google-plusone'>
-                  <div class="g-plusone" data-size="medium"></div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class='container'>
+      <div class='header'><a href="/">ngauthier</a></div>
       <div id='content'>
         {{ content }}
       </div>
+      <hr>
+      <footer>
+        <p>
+          &copy; Nick Gauthier 2012
+          &middot;
+          <a href='http://github.com/ngauthier'>GitHub</a>
+          &middot;
+          <a href='http://twitter.com/ngauthier'>Twitter</a>
+          &middot;
+          <a href='http://facebook.com/ngauthier'>Facebook</a>
+          &middot;
+          <a href='http://recipeswithbackbone.com'>Recipes with Backbone</a>
+        </p>
+      </footer>
     </div>
-    <hr>
-    <footer><p>&copy; Nick Gauthier 2012</p></footer>
   </body>
 </html>
