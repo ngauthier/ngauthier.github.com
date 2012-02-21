@@ -14,10 +14,10 @@ First up, **Ember's HTML**
 
     <script type="text/x-handlebars" data-template-name='timer'>
       <div class='timeleft'>{{timeLeft}}</div>
-      <a href="#" class='btn btn-large btn-primary' {{action "pomodoro"}}  >Pomodoro</a>
-      <a href="#" class='btn btn-large'             {{action "shortBreak"}}>Short Break</a>
-      <a href="#" class='btn btn-large'             {{action "longBreak"}} >Long Break</a>
-      <a href="#" class='btn btn-large btn-danger'  {{action "stop"}}      >Stop</a>
+      <a href="#" class='btn btn-large btn-primary' {{ "{{" }}action "pomodoro"}}  >Pomodoro</a>
+      <a href="#" class='btn btn-large'             {{ "{{" }}action "shortBreak"}}>Short Break</a>
+      <a href="#" class='btn btn-large'             {{ "{{" }}action "longBreak"}} >Long Break</a>
+      <a href="#" class='btn btn-large btn-danger'  {{ "{{" }}action "stop"}}      >Stop</a>
     </script>
     <h1>Pomodoro</h1>
     <div id='timer'></div>
@@ -27,7 +27,7 @@ We define a reusable template as a handlebars script tag and give it a name. The
 
     <h1>Pomodoro</h1>
     <script type="text/x-handlebars">
-      {{view Todos.MainView}}
+      {{ "{{" }}view Todos.MainView}}
     </script>
 
 However this really rubbed me the wrong way because I hate global variables (`Todos.MainView`). This template itself is kind of a global since it's directly in the dom. I prefer to give the template a global variable name (`data-template-name`) and have the view reference it.
