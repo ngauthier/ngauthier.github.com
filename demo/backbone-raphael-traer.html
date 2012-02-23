@@ -1,0 +1,169 @@
+<!doctype html>
+
+<html>
+  <head>
+    <!-- Include library -->
+    <script src="/javascripts/jquery-1.7.1.min.js"></script>
+    <script src="/javascripts/underscore-min.js"></script>
+    <script src="/javascripts/backbone.js"></script>
+    <script src="/javascripts/raphael.js"></script>
+    <script src="/javascripts/traer-backbone.js"></script>
+    <style>
+      #raphael {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+
+    <!-- Model a 2d grid of spring-connected particles -->
+    <script>
+      var Exobrain = {
+        setEngine: function(engine) {
+          this.engine = engine;
+        },
+        setPaper: function(paper) {
+          this.paper = paper;
+        },
+        makeParticle: function() {
+          return this.engine.makeParticle.apply(this.engine, arguments);
+        },
+        makeAttraction: function() {
+          return this.engine.makeAttraction.apply(this.engine, arguments);
+        },
+        makeSpring: function() {
+          return this.engine.makeSpring.apply(this.engine, arguments);
+        },
+        tick: function() {
+          this.engine.tick();
+        },
+        drawNode: function(x,y,size) {
+          var el = this.paper.circle(x,y,size);
+          el.attr({fill: 'red'});
+          return el;
+        },
+        start: function(delay) {
+          stop();
+          this.intervalID = setInterval(_.bind(this.tick, this), delay);
+        },
+        stop: function() {
+          clearInterval(this.intervalID);
+        }
+      };
+
+      Exobrain.Node = Backbone.Model.extend({
+        initialize: function(attributes) {
+          this.get('particle').on('change', function() {
+            this.trigger('change'); 
+          }, this);
+          this.children = new Exobrain.NodeList();
+        },
+        x:    function() { return this.get('particle').position.x; },
+        y:    function() { return this.get('particle').position.y; },
+        size: function() { return this.get('size');                },
+        engine: function() { return this.get('particle').engine; },
+        particle: function() { return this.get('particle'); },
+        createChild: function() {
+          var mass = 0.4;
+          var x = this.x() + Math.random() * 50 - 25;
+          var y = this.y() + Math.random() * 50 - 25;
+          var z = 0;
+        
+          var particle = Exobrain.makeParticle(mass, x, y, z);
+          var node = new Exobrain.Node({particle: particle, size: 10});
+          this.children.add(node);
+
+          var spring = 0.02;
+          var damping = 0.10;
+          var length = 120;
+          Exobrain.makeSpring(this.particle(), node.particle(), spring, damping, length);
+
+          this.trigger('child', node);
+          node.on('child', this.link, this);
+          node.on('child', function(child) { this.trigger('child', child) }, this);
+
+          return node;
+        },
+        link: function(node, strength) {
+          if (node === this) { return; }
+          if (strength === undefined) {
+            strength = -100.0;
+          } else {
+            strength = strength * 2.0;
+          }
+          var distanceMin = 5.0;
+          Exobrain.makeAttraction(this.particle(), node.particle(), strength, distanceMin);
+          this.children.each(function(child) { child.link(node, strength) }, this);
+        }
+      });
+
+      Exobrain.NodeList = Backbone.Collection.extend({
+        model: Node,
+        initialize: function(models, options) {
+          this.on('add', this.linkNodes, this);
+        },
+        linkNodes: function(node) {
+          this.each(function(other) {
+            other.link(node);
+          }, this);
+        }
+      })
+
+      Exobrain.NodeView = Backbone.View.extend({
+        events: {
+          'click': 'createChild'
+        },
+        initialize: function() {
+          this.element = Exobrain.drawNode(
+            this.model.x(), this.model.y(), this.model.size()
+          );
+          this.setElement(this.element.node);
+          this.model.on('change', this.render, this);
+        },
+        render: function() {
+          this.element.attr('cx', this.model.x());
+          this.element.attr('cy', this.model.y());
+        },
+        createChild: function() {
+          new Exobrain.NodeView({model: this.model.createChild()})
+        }
+      });
+
+      // Init
+      $(function() {
+        // Size of grid
+        var width  = $('#raphael').width();
+        var height = $('#raphael').height();
+
+        // Physics constants
+        var gravity = 0;
+        var drag = 0.01;
+
+        // Pause between frames of animation
+        var delay = 100;
+
+        Exobrain.setPaper(Raphael('raphael', width, height));
+        Exobrain.setEngine(new ParticleSystem(gravity, drag));
+
+        var root = Exobrain.makeParticle(8.0, (width / 2), (height / 2), 0.0);
+        root.makeFixed();
+        var root_node = new Exobrain.Node({particle: root, size: 50});
+        new Exobrain.NodeView({model: root_node});
+
+        // Begin rendering
+        Exobrain.start(delay);
+      });
+
+
+      </script>
+    </head>
+
+    <body>
+      <div id='raphael'></div>
+    </body>
+
+  </html>
+
+
