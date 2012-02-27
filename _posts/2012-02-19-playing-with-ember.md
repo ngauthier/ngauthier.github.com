@@ -12,23 +12,27 @@ I'd like to mention that I have no idea whether or not I really did this right. 
 
 First up, **Ember's HTML**
 
-    <script type="text/x-handlebars" data-template-name='timer'>
-      <div class='timeleft'>{{timeLeft}}</div>
-      <a href="#" class='btn btn-large btn-primary' {{ "{{" }}action "pomodoro"}}  >Pomodoro</a>
-      <a href="#" class='btn btn-large'             {{ "{{" }}action "shortBreak"}}>Short Break</a>
-      <a href="#" class='btn btn-large'             {{ "{{" }}action "longBreak"}} >Long Break</a>
-      <a href="#" class='btn btn-large btn-danger'  {{ "{{" }}action "stop"}}      >Stop</a>
-    </script>
-    <h1>Pomodoro</h1>
-    <div id='timer'></div>
+<pre class='prettyprint'>{% capture html %}{% raw %}
+<script type="text/x-handlebars" data-template-name='timer'>
+  <div class='timeleft'>{{timeLeft}}</div>
+  <a href="#" class='btn btn-large btn-primary' {{action "pomodoro"}}   >Pomodoro</a>
+  <a href="#" class='btn btn-large'             {{action "shortBreak"}} >Short Break</a>
+  <a href="#" class='btn btn-large'             {{action "longBreak"}}  >Long Break</a>
+  <a href="#" class='btn btn-large btn-danger'  {{action "stop"}}       >Stop</a>
+</script>
+<h1>Pomodoro</h1>
+<div id='timer'></div>
+{% endraw %}{% endcapture %}{{ html | escape }}</pre>
 
 We define a reusable template as a handlebars script tag and give it a name. Then lower down is a `#timer` div that we'll bind to. This is not the standard Ember way of placing a template. In the examples, you'll see:
 
 
-    <h1>Pomodoro</h1>
-    <script type="text/x-handlebars">
-      {{ "{{" }}view Todos.MainView}}
-    </script>
+<pre class='prettyprint'>{% capture html %}{% raw %}
+<h1>Pomodoro</h1>
+<script type="text/x-handlebars">
+  {{view Todos.MainView}}
+</script>
+{% endraw %}{% endcapture %}{{ html | escape }}</pre>
 
 However this really rubbed me the wrong way because I hate global variables (`Todos.MainView`). This template itself is kind of a global since it's directly in the dom. I prefer to give the template a global variable name (`data-template-name`) and have the view reference it.
 
@@ -103,14 +107,16 @@ So, I implemented the same timer in Backbone to see how much boilerplate I had t
 
 **Backbone's HTML**:
 
-    <h1>Pomodoro</h1>
-    <div id='backbone-timer'>
-      <div class='timeleft'></div>
-      <a href="#" class='btn btn-large btn-primary pomodoro'   >Pomodoro</a>
-      <a href="#" class='btn btn-large             short-break'>Short Break</a>
-      <a href="#" class='btn btn-large             long-break' >Long Break</a>
-      <a href="#" class='btn btn-large btn-danger  stop'       >Stop</a>
-    </div>
+<pre class='prettyprint'>{% capture html %}{% raw %}
+<h1>Pomodoro</h1>
+<div id='backbone-timer'>
+  <div class='timeleft'></div>
+  <a href="#" class='btn btn-large btn-primary pomodoro'   >Pomodoro</a>
+  <a href="#" class='btn btn-large             short-break'>Short Break</a>
+  <a href="#" class='btn btn-large             long-break' >Long Break</a>
+  <a href="#" class='btn btn-large btn-danger  stop'       >Stop</a>
+</div>
+{% endraw %}{% endcapture %}{{ html | escape }}</pre>
 
 Unlike Ember, this is direct html I am writing right in the dom, not script tags. If there's a way to bind Ember to existing elements, let me know!
 
