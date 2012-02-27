@@ -75,6 +75,19 @@ h2 {
   background-image: -o-linear-gradient(     top, rgba(245,240,234,0), rgba(245,240,234,1));
 }
 
+.prettyprint {
+  border: 1px solid #e1d2c1;
+  background-color: #eee6dd;
+}
+
+.prettyprint .com {
+  color: #908880;
+}
+
+code, pre {
+  font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Inconsolata", "Courier New", monospace;
+}
+
 .hero-unit {
   background-color: #e6dacc;
   -webkit-border-radius: 0px;
