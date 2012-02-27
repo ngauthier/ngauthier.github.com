@@ -126,29 +126,6 @@ iframe.youtube {
   line-height: 30px;
 }
 
-.hire .intro, .hire .accomplishments, .hire .consulting, .hire .training, .hire .contact {
-}
-
-.hire .intro {
-  /*background-color: #c6b198;*/
-}
-
-.hire .accomplishments {
-/*  background-color: #e6dacc;*/
-}
-
-.hire .consulting {
-  /*background-color: #ded0bf;*/
-}
-
-.hire .training {
-/*  background-color: #d6c5b2;*/
-}
-
-.hire .contact {
-/*  background-color: #cfbca5;*/
-}
-
 footer {
   margin-top: 26px;
   color: #a29382;
