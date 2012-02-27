@@ -1,3 +1,6 @@
+body {
+  background-color: #f5f0ea;
+}
 body, h1, h2, h3, h4, h5, h6, h1 a {
   color: #38312b;
 }
@@ -6,19 +9,25 @@ a, a:hover {
   color: #945929;
 }
 
-body {
-  padding-top: 8px;
-}
-
 .header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  background: #c8ad8d;
 }
 
 .header, h1, h2, h3 {
   font-family: Arimo,"Helvetica Neue",Helvetica,Arial,sans-serif;
   text-transform: uppercase;
   font-weight: normal;
+}
+
+h1.post {
+  background-color: #e6dacc;
+  padding: 8px 0 12px 0;
+}
+
+h2 {
+  margin-bottom: 22px;
 }
 
 .btn-primary {
@@ -59,15 +68,18 @@ body {
   height: 36px;
   margin-top: -45px;
   opacity: 0.99;
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgba(255,255,255,0)),color-stop(1, rgba(255,255,255,1)));
-  background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
-  background-image: -moz-linear-gradient(   top, rgba(255,255,255,0), rgba(255,255,255,1));
-  background-image: -ms-linear-gradient(    top, rgba(255,255,255,0), rgba(255,255,255,1));
-  background-image: -o-linear-gradient(     top, rgba(255,255,255,0), rgba(255,255,255,1));
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgba(245,240,234,0)),color-stop(1, rgba(245,240,234,1)));
+  background-image: -webkit-linear-gradient(top, rgba(245,240,234,0), rgba(245,240,234,1));
+  background-image: -moz-linear-gradient(   top, rgba(245,240,234,0), rgba(245,240,234,1));
+  background-image: -ms-linear-gradient(    top, rgba(245,240,234,0), rgba(245,240,234,1));
+  background-image: -o-linear-gradient(     top, rgba(245,240,234,0), rgba(245,240,234,1));
 }
 
 .hero-unit {
   background-color: #e6dacc;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 }
 
 .hero-unit h1 {
@@ -136,6 +148,15 @@ iframe.youtube {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   */
+}
+
+footer {
+  margin-top: 26px;
+  color: #a29382;
+}
+
+footer a {
+  color: #c49a7f;
 }
 
 @media (max-width: 768px) {
