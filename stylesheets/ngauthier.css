@@ -21,13 +21,17 @@ a, a:hover {
   font-weight: normal;
 }
 
-h1.post {
+h1.post, .hire h1 {
   background-color: #e6dacc;
-  padding: 8px 0 12px 0;
+  padding: 8px 0 16px 0;
 }
 
 h2 {
-  margin-bottom: 22px;
+  margin: 22px 0 8px 0;
+}
+
+article {
+  padding-top: 18px;
 }
 
 .btn-primary {
@@ -123,44 +127,26 @@ iframe.youtube {
 }
 
 .hire .intro, .hire .accomplishments, .hire .consulting, .hire .training, .hire .contact {
-  padding: 20px 20px;
 }
 
 .hire .intro {
-  background-color: #e6dacc;
-  margin-top: 10px;
-  /*
-  -webkit-border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  */
+  /*background-color: #c6b198;*/
 }
 
 .hire .accomplishments {
-  background-color: #ded0bf;
+/*  background-color: #e6dacc;*/
 }
 
 .hire .consulting {
-  background-color: #d6c5b2;
+  /*background-color: #ded0bf;*/
 }
 
 .hire .training {
-  background-color: #cfbca5;
+/*  background-color: #d6c5b2;*/
 }
 
 .hire .contact {
-  background-color: #c6b198;
-  /*
-  -webkit-border-bottom-right-radius: 10px;
-  -webkit-border-bottom-left-radius: 10px;
-  -moz-border-radius-bottomright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  */
+/*  background-color: #cfbca5;*/
 }
 
 footer {

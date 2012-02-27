@@ -4,10 +4,10 @@ layout: default
 <h1 class='post'>
   <div class='container'>
     <a href="{{page.url}}">{{page.title}}</a>
+    <small class='pull-right'>by <a href="/">Nick Gauthier</a> on {{page.date | date: "%Y-%m-%d"}}</small>
   </div>
 </h1>
 <article class='container'>
-  <h2><small>by <a href="/">Nick Gauthier</a> on {{page.date | date: "%Y-%m-%d"}}</small></h2>
   {{ content }}
   <div id="disqus_thread"></div>
   <script type="text/javascript">
