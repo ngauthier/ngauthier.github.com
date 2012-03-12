@@ -30,8 +30,17 @@ h2 {
   margin: 22px 0 8px 0;
 }
 
+h3 {
+  margin: 12px 0 ;
+}
+
 article {
   padding-top: 18px;
+}
+
+p, ol li, ul li {
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .btn-primary {
