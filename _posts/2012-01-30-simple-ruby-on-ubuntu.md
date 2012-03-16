@@ -19,7 +19,7 @@ sudo apt-get install aptitude rubygems1.9.1 libxslt1-dev libxml2-dev build-essen
 sudo apt-get build-dep ruby1.9.1
 </pre>
 
-If you haven't seen it before, `apt-get build-dep X` will install all the dependencies needed to compile `X` from source. A handy shortcut for grabbing lots of libraries that gems like to have arount.
+If you haven't seen it before, `apt-get build-dep X` will install all the dependencies needed to compile `X` from source. A handy shortcut for grabbing lots of libraries that gems like to have around.
 
 ## Rubygems
 
