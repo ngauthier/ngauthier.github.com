@@ -39,8 +39,8 @@ In your .bashrc (or whatever shell init script):
 
 <pre class='prettyprint'>
 alias bundle-bootstrap="bundle install --binstubs=.bundle/bin --path=.bundle/gems"
-export PATH=.bundle/bin:/home/nick/.gems/bin:$PATH
-export GEM_HOME=/home/nick/.gems
+export PATH=.bundle/bin:$HOME/.gems/bin:$PATH
+export GEM_HOME=$HOME/.gems
 </pre>
 
 The bundler alias will put binstubs (shell scripts that run a gem's binary) into the current directory's `.bundle/bin`. It also says to store the gem sources in `.bundle/gems`. This means that as soon as you leave this directory, it's like those gems aren't even installed!
