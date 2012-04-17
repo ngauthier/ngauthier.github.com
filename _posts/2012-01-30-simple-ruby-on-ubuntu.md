@@ -45,7 +45,7 @@ export GEM_HOME=$HOME/.gems
 
 The bundler alias will put binstubs (shell scripts that run a gem's binary) into the current directory's `.bundle/bin`. It also says to store the gem sources in `.bundle/gems`. This means that as soon as you leave this directory, it's like those gems aren't even installed!
 
-The second line puts the current directory's `.bundle/bin` a the highest priority for finding binaries, followed by my home directory's gems binary folder. This means that local gem binaries take precedent. That means **no more bundle exec**.
+The second line puts the current directory's `.bundle/bin` as the highest priority for finding binaries, followed by my home directory's gems binary folder. This means that local gem binaries take precedent. That means **no more bundle exec**.
 
 The third line sets up my gem home so if I just run `gem install` they go to my home. This is where I put bundler, jekyll, heroku, etc.
 
