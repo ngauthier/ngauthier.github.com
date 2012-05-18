@@ -101,6 +101,11 @@ code, pre {
   font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Inconsolata", "Courier New", monospace;
 }
 
+code {
+  color: #333;
+  background: #eee6dd;
+}
+
 .hero-unit {
   background-color: #e6dacc;
   -webkit-border-radius: 0px;
