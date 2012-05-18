@@ -15,21 +15,8 @@ So, here were my steps to get ruby (and postgres) setup:
 Install ruby, rubygems, a few dependencies and postgres:
 
 <pre class='prettyprint'>
-sudo apt-get install aptitude rubygems1.9.1 libxslt1-dev libxml2-dev build-essential g++ ruby1.9.1-dev postgresql libpq-dev
-sudo apt-get build-dep ruby1.9.1
+sudo apt-get install libxslt1-dev libxml2-dev build-essential g++ ruby1.9.1-dev postgresql libpq-dev
 </pre>
-
-If you haven't seen it before, `apt-get build-dep X` will install all the dependencies needed to compile `X` from source. A handy shortcut for grabbing lots of libraries that gems like to have around.
-
-## Rubygems
-
-By default, Ubuntu has rubygems 1.3.7, which just won't cut it for most gemspecs nowadays. Update rubygems like so:
-
-<pre class='prettyprint'>
-sudo gem install rubygems-update
-sudo update_rubygems
-</pre>
-
 
 ## Bundler and gem-scoping
 
@@ -39,8 +26,8 @@ In your .bashrc (or whatever shell init script):
 
 <pre class='prettyprint'>
 alias bundle-bootstrap="bundle install --binstubs=.bundle/bin --path=.bundle/gems"
-export PATH=.bundle/bin:$HOME/.gems/bin:$PATH
 export GEM_HOME=$HOME/.gems
+export PATH=.bundle/bin:$GEM_HOME/bin:$PATH
 </pre>
 
 The bundler alias will put binstubs (shell scripts that run a gem's binary) into the current directory's `.bundle/bin`. It also says to store the gem sources in `.bundle/gems`. This means that as soon as you leave this directory, it's like those gems aren't even installed!
@@ -65,4 +52,4 @@ Hope this helps all my fellow linux rubyists on having a fast and clean ruby ins
 
 xoxo [@ngauthier](http://twitter.com/ngauthier)
 
-P.S.: if you need ruby 1.8.7, check out rbenv, which will be in APT starting in 12.04. You can install ruby 1.8 from APT then use rbenv to switch rubies. I haven't used it myself but it seems to be what people prefer.
+P.S.: if you need ruby 1.8.7, check out rbenv, which is now in APT as of 12.04. You can install ruby 1.8 from APT then use rbenv to switch rubies. I haven't used it myself but it seems to be what people prefer.
