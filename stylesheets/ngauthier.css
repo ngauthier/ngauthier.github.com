@@ -98,7 +98,7 @@ p, ol li, ul li {
 }
 
 code, pre {
-  font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Inconsolata", "Courier New", monospace;
+  font-family: "Inconsolata", "Bitstream Vera Sans Mono", Menlo, Monaco, "Courier New", monospace;
 }
 
 code {
