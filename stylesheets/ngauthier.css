@@ -16,7 +16,7 @@ a, a:hover {
 }
 
 .header, h1, h2, h3 {
-  font-family: Arimo,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   text-transform: uppercase;
   font-weight: normal;
 }
