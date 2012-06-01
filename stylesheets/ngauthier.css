@@ -39,7 +39,7 @@ article {
 }
 
 p, ol li, ul li {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
 }
 
@@ -99,6 +99,7 @@ p, ol li, ul li {
 
 code, pre {
   font-family: "Inconsolata", "Bitstream Vera Sans Mono", Menlo, Monaco, "Courier New", monospace;
+  font-size: 16px;
 }
 
 code {
@@ -136,7 +137,7 @@ iframe.youtube {
 }
 
 .hire p {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 30px;
 }
 
