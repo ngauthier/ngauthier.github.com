@@ -73,7 +73,7 @@ p, ol li, ul li {
 
 .posts p.preview {
   line-height: 16px;
-  font-size: 12px
+  font-size: 12px;
   height: 72px;
   overflow: hidden;
 }
