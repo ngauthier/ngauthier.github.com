@@ -15,23 +15,30 @@ a, a:hover {
   background: #c8ad8d;
 }
 
+.header {
+  text-transform: uppercase;
+}
+
+
 .header, h1, h2, h3 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  text-transform: uppercase;
   font-weight: normal;
 }
 
 h1.post, .hire h1 {
   background-color: #e6dacc;
-  padding: 8px 0 16px 0;
+  padding: 16px 0;
 }
 
 h2 {
   margin: 22px 0 8px 0;
+  border-bottom: 1px solid #e6dacc;
 }
 
 h3 {
   margin: 12px 0 ;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 article {
@@ -145,10 +152,15 @@ iframe.youtube {
 footer {
   margin-top: 26px;
   color: #a29382;
+  text-align: center;
 }
 
 footer a {
   color: #c49a7f;
+}
+
+footer p {
+  font-size: 12px;
 }
 
 @media (max-width: 768px) {
