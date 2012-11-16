@@ -79,8 +79,8 @@ p, ol li, ul li {
 }
 
 .posts p.preview {
-  line-height: 16px;
-  font-size: 12px;
+  line-height: 18px;
+  font-size: 14px;
   height: 72px;
   overflow: hidden;
 }
