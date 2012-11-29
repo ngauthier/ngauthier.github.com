@@ -2,6 +2,7 @@
 layout: post
 title: Ruby on Rails on the Nexus 7
 date: 2012-11-28
+image: /images/nexus-7-rails.jpg
 ---
 
 This evening I decided to put Ubuntu on my Nexus 7 to see how it performs and what packages are available on ARM. I'm happy to report that Ruby 1.9.3 (p194) and Rails 3.2.9 work perfectly (albeit slowly :-D).

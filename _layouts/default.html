@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Nick Gauthier" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Nick Gauthier">
     <meta name="viewport" content="width=device-width">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@ngauthier">
+    <meta name="twitter:url" content="http://ngauthier.com{{page.url}}">
+    <meta name="twitter:title" content="{{ page.title | strip_html | truncate: 70 }}">
+    <meta name="twitter:description" content="{{ page.content | strip_html | truncate: 200 }}">
+    {% if page.image %}
+      <meta name="twitter:image" content="http://ngauthier.com{{ page.image }}">
+    {% endif %}
     <title>{{page.title}}</title>
     <link rel="alternate" type="application/atom+xml" title="Nick Gauthier - Atom" href="/feeds/posts/default" />
 
