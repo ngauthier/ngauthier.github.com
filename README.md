@@ -13,3 +13,4 @@
 * Template => View => Model accessor methods
 * Unobtrusive boot
 * possible to do rails-style concerns as mixins
+* A- development: diminishing returns, 90% is all you need, ship it, refactoring, abstraction, testing
