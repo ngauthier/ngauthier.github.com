@@ -2,7 +2,6 @@
 
 ## Ideas
 
-* SCSS and vanilla frameworks like Bootstrap in Rails w/ `extend`
 * The Freelancer's Stack - minimal gems, automation, leverage postgresql, mostly integration testing
 * A- development: diminishing returns, 90% is all you need, ship it, refactoring, abstraction, testing
 
