@@ -12,11 +12,7 @@ So, here were my steps to get ruby (and postgres) setup:
 
 ## Ruby
 
-Install ruby, rubygems, a few dependencies and postgres:
-
-<pre class='prettyprint'>
-sudo apt-get install libxslt1-dev libxml2-dev build-essential g++ ruby1.9.1-dev postgresql libpq-dev
-</pre>
+Install ruby, rubygems, a few dependencies and postgres: <a href="apt:libxslt1-dev,libxml2-dev,build-essential,g++,ruby1.9.1-dev,postgresql,libpq-dev">libxslt1-dev libxml2-dev build-essential g++ ruby1.9.1-dev postgresql libpq-dev</a>.
 
 ## Bundler and gem-scoping
 
