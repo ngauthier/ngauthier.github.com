@@ -48,6 +48,7 @@ article {
 p, ol li, ul li {
   font-size: 16px;
   line-height: 24px;
+  margin-bottom: 1em;
 }
 
 .btn-primary {
