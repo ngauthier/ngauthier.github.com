@@ -13,6 +13,6 @@ In this screencast we go over three different ways of booting your application:
 2. Application.boot method called from html
 3. Unobtrusive boot based on a data attribute
 
-If you like this screencast, consider buying [http://mobilebbbook.com](Mobile Web Patterns with Backbone.js).
+If you like this screencast, consider buying [Mobile Web Patterns with Backbone.js](http://mobilebbbook.com).
 
-All the code is in CoffeeScript, for more information, check out [http://coffeescript.org](CoffeeScript's web site).
+All the code is in CoffeeScript, for more information, check out [CoffeeScript's web site](http://coffeescript.org).
