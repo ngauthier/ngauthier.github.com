@@ -2,6 +2,7 @@
 layout: post
 title: Backbone Screencast 01 - Booting your Application
 date: 2013-02-06
+image: /images/bbs-01.png
 ---
 
 <div><iframe class='youtube' src="http://www.youtube.com/embed/4nlpDOIVhJw" frameborder="0" allowfullscreen></iframe></div>
