@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Rails 4 Server-Side Events with ActionController::Live and PostgreSQL NOTIFY/LISTEN
+title: Rails 4 Server Sent Events with ActionController::Live and PostgreSQL NOTIFY/LISTEN
 date: 2013-02-19
 ---
 
@@ -8,7 +8,7 @@ I had a simple problem: one user takes an action, and I want it to be reflected 
 
 There are lots of potential ways to solve this: polling, long polling, websockets, etc. However I had a specific goal in mind: **use the stack I already had** and keep complexity to a minimum. I didn't want to use websockets because of the extra setup on the server. Nginx just got a websockets proxy patch, but I don't feel like compiling nginx from source on my deployment machines. I wanted something evented, but I didn't want to add another back-end service like Redis.
 
-I decided to use Rails 4's ActionController::Live, Server-Side Events, and PostgreSQL's NOTIFY/LISTEN system. The best part is that all I had to do to my stack was swap thin for puma.
+I decided to use Rails 4's ActionController::Live, HTML5 Server Sent Events, and PostgreSQL's NOTIFY/LISTEN system. The best part is that all I had to do to my stack was swap thin for puma.
 
 Huge thanks to Aaron Patterson for his post [Is it Live?](http://tenderlovemaking.com/2012/07/30/is-it-live.html). Go read that now, because that's how I implemented ActionController::Live, SSEs, and the Javascript.
 
