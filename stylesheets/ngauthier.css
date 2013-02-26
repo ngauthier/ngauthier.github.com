@@ -25,6 +25,24 @@ a, a:hover {
   font-weight: normal;
 }
 
+.promo {
+  background: #bea385;
+  padding: 10px 0;
+}
+
+.promo img {
+  width: 125px;
+}
+
+.promo p {
+  font-size: 24px;
+  line-height: 1.25em;
+}
+
+.promo a {
+  color: #6f492b;
+}
+
 h1.post, .hire h1 {
   background-color: #e6dacc;
   padding: 16px 0;
