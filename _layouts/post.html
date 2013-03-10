@@ -1,14 +1,12 @@
 ---
 layout: default
 ---
-<h1 class='post'>
-  <div class='container'>
+<article>
+  <h1 class='post'>
     <a href="{{page.url}}">{{page.title}}</a>
     <br>
-    <small>by <a href="/">Nick Gauthier</a> on {{page.date | date: "%Y-%m-%d"}}</small>
-  </div>
-</h1>
-<article class='container'>
+    <small>by <a href="/">Nick Gauthier</a> on <time pubdate datetime="{{page.date | date: "%Y-%m-%d"}}">{{page.date | date: "%Y-%m-%d"}}</time></small>
+  </h1>
   {{ content }}
   <div id="disqus_thread"></div>
   <script type="text/javascript">

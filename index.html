@@ -2,35 +2,18 @@
 layout: default
 title: Nick Gauthier's Blog
 ---
-<div class='hero-unit'>
-  <div class='container'>
-    <div class='row-fluid'>
-      <div class='span2'>
-        <img src='/images/profile.png' width="150" height="150">
-      </div>
-      <div class='span10'>
-        <h1>Hey there!</h1>
-        <p>I'm <strong>Nick Gauthier</strong> and this is my blog.</p>
-        <p>I post about a variety of technical topics like Ruby on Rails, Javascript, and Backbone.js. I'm a freelance web developer based out of Baltimore.</p>
-        <p>
-          <a class='btn btn-primary btn-large' href='/hire.html'>Hire me &raquo;</a>
-          <a class='btn btn-primary btn-large' href='/backbone-js-training-class.html'>Backbone.js Training &raquo;</a>
-          </p>
-      </div>
+<h1>Nick Gauthier's Blog</h1>
+<p>Nick Gauthier is a web freelancer, consultant, and trainer specializing in Ruby on Rails, JavaScript (especially Backbone.js and jQuery), and PostgreSQL. In 2011 he co-wrote <a href="http://recipeswithbackbone.com">Recipes with Backbone</a> with <a href="http://japhr.blogspot.com/">Chris Strom</a> and in 2012 he wrote <a href="http://mobilebbbook.com">Mobile Web Patterns with Backbone.js</a>.</p>
+
+<p>Nick has spoken at a bunch of Ruby and Open-Source conferences including RailsConf, WindyCityRuby, GoRuCo, Ruby Hoedown, Lone Star Ruby Conf, and RubyNation, and he's always interested in speaking about web development, Ruby, Rails, JavaScript, Backbone, and other topics.</p>
+
+<h2>Posts</h2>
+<p>A reverse chronological archive of all posts by Nick Gauthier.</p>
+<div class='posts'>
+  {% for post in site.posts %}
+    <div class='post'>
+      <h3><a href="{{post.url}}">{{post.title}}</a><br><small>{{post.date | date: "%Y-%m-%d"}}</small></h3>
+      <p class='preview'>{{post.content | strip_html | truncate: 500 }}</p>
     </div>
-  </div>
-</div>
-<div class='container'>
-  <h2>Posts</h2>
-  <div class='posts'>
-    {% for post in site.posts %}
-      {% cycle '<div class="row">', '', '' %}
-        <div class='span4'>
-          <h4><a href="{{post.url}}">{{post.title}}</a> <small>{{post.date | date: "%Y-%m-%d"}}</small></h4>
-          <p class='preview'>{{post.content | strip_html | truncate: 300 }}</p>
-          <div class='text-fade'></div>
-        </div>
-      {% cycle '', '', '</div>' %}
-    {% endfor %}
-  </div>
+  {% endfor %}
 </div>

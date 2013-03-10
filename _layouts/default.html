@@ -15,14 +15,13 @@
     <title>{{page.title}}</title>
     <link rel="alternate" type="application/atom+xml" title="Nick Gauthier - Atom" href="/feeds/posts/default" />
 
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic|Inconsolata:400,700|Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="/stylesheets/normalize.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/prettify.css" type="text/css" rel="stylesheet" />
-    <link href="/stylesheets/bootstrap.css" type="text/css" rel="stylesheet" />
-    <link href="/stylesheets/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
     <link href="/stylesheets/ngauthier.css" type="text/css" rel="stylesheet" />
-    
-    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script> 
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
-    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(prettyPrint);
     </script>
@@ -38,41 +37,34 @@
     </script>
   </head>
   <body>
-    <div class='header'>
-      <div class='container'>
-        <a href="/">ngauthier</a>
-        &middot;
-        <a href="/hire.html">Hire me</a>
-        &middot;
-        <a href="/backbone-js-training-class.html">Backbone.js Training</a>
-      </div>
-    </div>
+    <nav class='header'>
+      <a href="/"><img src='/images/profile.png' class='portrait'></a>
+      <ul>
+        <li><a href="/">ngauthier</a></li>
+        <li><a href="/hire.html">Hire me</a></li>
+        <li><a href="/backbone-js-training-class.html">Backbone.js Training</a></li>
+      </ul>
+    </nav>
     <div class='promo'>
-      <div class='container'>
-        <a href="http://mobilebbbook.com">
-          <img src="/images/3d-book-cover-500x500.png" alt="Book Cover" class='pull-left'>
-        </a>
-        <h3>
-          New e-book released
-        </h3>
-        <p>
-          <a href="http://mobilebbbook.com">Mobile Web Patterns with Backbone.js</a>
-        </p>
-      </div>
-    </div>
-    {{ content }}
-    <footer class='container'>
+      <a href="http://mobilebbbook.com">
+        <img src="/images/3d-book-cover-500x500.png" alt="Book Cover" class='pull-left'>
+      </a>
       <p>
-        &copy; Nick Gauthier 2012
-        &middot;
-        <a href='http://github.com/ngauthier'>GitHub</a>
-        &middot;
-        <a href='http://twitter.com/ngauthier'>Twitter</a>
-        &middot;
-        <a href='http://recipeswithbackbone.com'>Recipes with Backbone</a>
-        &middot;
-        <a href="http://madewithloveinbaltimore.org">Made with &hearts; in Baltimore</a>
+        New e-book released:
+        <a href="http://mobilebbbook.com">Mobile Web Patterns with Backbone.js</a>
       </p>
+    </div>
+    <div class="content">
+      {{ content }}
+    </div>
+    <footer>
+      <ul>
+        <li>&copy; Nick Gauthier 2013</li>
+        <li><a href='http://twitter.com/ngauthier'>@ngauthier</a></li>
+        <li><a href='http://recipeswithbackbone.com'>Recipes with Backbone</a></li>
+        <li><a href='http://mobilebbbook.com'>Mobile Web Patterns with Backbone.js</a></li>
+        <li><a href="http://madewithloveinbaltimore.org">Made with &hearts; in Baltimore</a></li>
+      </ul>
     </footer>
   </body>
 </html>
