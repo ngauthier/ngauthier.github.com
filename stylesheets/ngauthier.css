@@ -3,20 +3,22 @@ html {
   color: #555;
   font-family: "Droid Serif", serif;
   font-size: 18px;
-  line-height: 175%;
+  line-height: 185%;
 }
 
 body {
   width: 720px;
+  padding: 0 24px;
   margin: auto;
 }
 
 h1 { font-size: 30px; }
-h2 { font-size: 24px; }
-h3 { font-size: 18px; }
+h2 { font-size: 28px; }
+h3 { font-size: 24px; }
+h1.site-title { font-size: 48px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Droid Sans", sans-serif;
+  font-family: "Mate", serif;
   font-weight: normal;
   line-height: 125%;
   color: #333;
@@ -25,6 +27,14 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 a, h2 a, h3 a {
   text-decoration: none;
+}
+
+h1 {
+  margin: 2em 0 1em 0;
+}
+
+small {
+  font-size: 70%;
 }
 
 p {
@@ -41,12 +51,13 @@ a:active {
 
 .header {
   padding: 2px 0;
-  height: 50px;
+  height: 64px;
+  margin-top: 6px;
 }
 
 .header img.portrait {
-  height: 48px;
-  width: 48px;
+  height: 64px;
+  width: 64px;
   float: left;
   margin-right: 20px;
 }
@@ -61,13 +72,13 @@ a:active {
 .header li {
   float: left;
   font-size: 18px;
-  line-height: 48px;
+  line-height: 64px;
   margin-right: 1em;
 }
 
 .header li:first-child {
-  margin-right: 10em;
-  font-size: 24px;
+  margin-right: 5em;
+  font-size: 28px;
 }
 
 .header a, .header a:visited, .header a:active {
@@ -84,15 +95,17 @@ a:active {
   clear: both;
   margin-top: 8px;
   padding: 2px;
-  height: 50px;
-  line-height: 48px;
+  height: 64px;
+  font-size: 20px;
+  line-height: 64px;
   background-color: #e8ffe0;
   border-radius: 4px;
 }
 
 .promo img {
   float: left;
-  height: 48px;
+  height: 64px;
+  width: 64px;
   margin-right: 1em;
 }
 
