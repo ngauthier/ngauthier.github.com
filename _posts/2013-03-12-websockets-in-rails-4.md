@@ -34,11 +34,11 @@ class ChatController < ApplicationController
   def chat
     hijack do |tubesock|
       tubesock.onopen do
-        tubesock.send_data message: "Hello, friend"
+        tubesock.send_data "Hello, friend"
       end
 
       tubesock.onmessage do |data|
-        tubesock.send_data message: "You said: #{data[:message]}"
+        tubesock.send_data message: "You said: #{data}"
       end
     end
   end
@@ -49,6 +49,6 @@ Right inside the controller action we can hijack the connection and then use som
 
 You can check out [the Tubesock gem on Github](http://github.com/ngauthier/tubesock) for more information.
 
-Also, there is an [example chat application](http://github.com/ngauthier/tubesock-example) you can run and play with.
+Also, there is an [example chat application](http://github.com/ngauthier/sock-chat) you can run and play with.
 
 Happy hacking!
