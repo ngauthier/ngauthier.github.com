@@ -2,11 +2,17 @@
 layout: default
 ---
 <article>
-  <h1 class='post'>
-    <a href="{{page.url}}">{{page.title}}</a>
-    <br>
-    <small>by <a href="/">Nick Gauthier</a> on <time pubdate datetime="{{page.date | date: "%Y-%m-%d"}}">{{page.date | date: "%Y-%m-%d"}}</time></small>
-  </h1>
+  <header>
+    <h1 class='post'>
+      <a href="{{page.url}}">{{page.title}}</a>
+    </h1>
+    <h2>
+      by
+      <a href="/" rel="author">Nick Gauthier</a>
+      on
+      <time itemprop="startDate" datetime="{{page.date | date_to_xmlschema }}">{{page.date | date: "%Y-%m-%d"}}</time>
+    </h2>
+  </header>
   {{ content }}
   <div id="disqus_thread"></div>
   <script type="text/javascript">

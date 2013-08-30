@@ -12,7 +12,11 @@ title: Nick Gauthier's Blog
 <div class='posts'>
   {% for post in site.posts %}
     <div class='post'>
-      <h3><a href="{{post.url}}">{{post.title}}</a><br><small>{{post.date | date: "%Y-%m-%d"}}</small></h3>
+      <h3>
+        <a href="{{post.url}}">{{post.title}}</a>
+        <br>
+        <small><time itemprop="startDate" datetime="{{post.date | date_to_xmlschema }}">{{post.date | date: "%Y-%m-%d"}}</time></small>
+      </h3>
       <p class='preview'>{{post.content | strip_html | truncate: 500 }}</p>
     </div>
   {% endfor %}

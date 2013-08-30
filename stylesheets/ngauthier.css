@@ -125,6 +125,16 @@ article img {
   width: 100%;
 }
 
+article header h1 {
+  margin-bottom: 0;
+}
+
+article header h2 {
+  font-size: 22px;
+  margin-top: 0.25em;
+  margin-bottom: 1em;
+}
+
 .posts .post {
   margin-top: 2em;
 }
