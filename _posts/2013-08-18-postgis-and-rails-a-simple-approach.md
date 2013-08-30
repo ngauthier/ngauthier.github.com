@@ -211,12 +211,12 @@ scope :close_to, -> (latitude, longitude, distance_in_meters = 2000) {
   where(%{
     ST_DWithin(
       ST_GeographyFromText(
-        'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'
+        'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'
       ),
       ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
       %d
     )
-  } % [latitude, longitude, distance_in_meters])
+  } % [longitude, latitude, distance_in_meters])
 }
 </pre>
 
@@ -224,7 +224,7 @@ This should pass our test. Let's talk about what's going on.
 
 We're making a `where` scope on `Cafe` that uses the `ST_DWithin` function to find all the cafes with a certain distance of a given point. The third parameter here is the distance in meters, and our default is 2km.
 
-Then, we're providing two point objects via `ST_GeographyFromText`. This function converts some text in Well Known Text (WKT) format to the binary format used by PostGIS to represent points. An example of WKT would be `SRID=4326;POINT(39.000000 -76.000000)`. The first parameter sets the SRID to 4326 (a projection representing the whole globe) and then builds a string for a point featuring the cafe's latitude and longitude. This builds a point on the fly for each cafe in the cafes table.
+Then, we're providing two point objects via `ST_GeographyFromText`. This function converts some text in Well Known Text (WKT) format to the binary format used by PostGIS to represent points. An example of WKT would be `SRID=4326;POINT(-76.000000 39.000000)`. The first parameter sets the SRID to 4326 (a projection representing the whole globe) and then builds a string for a point featuring the cafe's longitude and latitude. This builds a point on the fly for each cafe in the cafes table.
 
 The second point object builds a point using the parameters passed in to the scope lambda, the lat and lon. We use Ruby's built-in string interpolation to easily encode two floating point numbers. It's safe and it let's us avoid ActiveRecord's quoting, which would mess up the SQL.
 
@@ -261,9 +261,9 @@ Now, when we ran our test, you can look in the logs to find the query Rails puts
 SELECT "cafes".* FROM "cafes" WHERE (
  ST_DWithin(
  ST_GeographyFromText(
- 'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'
+ 'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'
  ),
- ST_GeographyFromText('SRID=4326;POINT(39.000000 -76.000000)'),
+ ST_GeographyFromText('SRID=4326;POINT(-76.000000 39.000000)'),
  2000
  )
  )
@@ -277,9 +277,9 @@ Let's use PostgreSQL's built-in `EXPLAIN` and `ANALYZE` tools:
 refuelly_development=# EXPLAIN ANALYZE SELECT "cafes".* FROM "cafes" WHERE (
  ST_DWithin(
  ST_GeographyFromText(
- 'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'
+ 'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'
  ),
- ST_GeographyFromText('SRID=4326;POINT(39.000000 -76.000000)'),
+ ST_GeographyFromText('SRID=4326;POINT(-76.000000 39.000000)'),
  2000
  )
 
@@ -327,7 +327,7 @@ class AddPointIndexToCafes < ActiveRecord::Migration
     execute %{
       create index index_on_cafes_location ON cafes using gist (
         ST_GeographyFromText(
-          'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'
+          'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'
         )
       )
     }
@@ -347,7 +347,7 @@ Migrate your database (this will take a little bit because it has to index the m
 $ rake db:migrate
 
 ==  AddPointIndexToCafes: migrating ===========================================
--- execute("\n      create index index_on_cafes_location ON cafes using gist (\n        ST_GeographyFromText(\n          'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'\n        )\n      )\n    ")
+-- execute("\n      create index index_on_cafes_location ON cafes using gist (\n        ST_GeographyFromText(\n          'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'\n        )\n      )\n    ")
    -> 18.7678s
 ==  AddPointIndexToCafes: migrated (18.7680s) =================================
 </pre>
@@ -358,9 +358,9 @@ Now, let's re-run our explained distance query:
 refuelly_development=# explain analyze SELECT "cafes".* FROM "cafes" WHERE (
  ST_DWithin(
  ST_GeographyFromText(
- 'SRID=4326;POINT(' || cafes.latitude || ' ' || cafes.longitude || ')'
+ 'SRID=4326;POINT(' || cafes.longitude || ' ' || cafes.latitude || ')'
  ),
- ST_GeographyFromText('SRID=4326;POINT(39.000000 -76.000000)'),
+ ST_GeographyFromText('SRID=4326;POINT(-76.000000 39.000000)'),
  2000
  )
  )
