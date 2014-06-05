@@ -507,3 +507,5 @@ The cool thing is, we could switch our GDBM implementation our for any other typ
 I've found GDBM to be a really useful little library, because when I am writing utility scripts I don't want to maintain a PostgreSQL database, but I also need some persistence and reliability. It's a great step up from writing to csv repeatedly (which is pretty slow and also error prone when the program crashes during a write!).
 
 I continue to find wonderful nuggets of awesome in Ruby's standard library all the time!
+
+[Final source code available as a gist](https://gist.github.com/ngauthier/0f78598f2aaecab8f1bc).
