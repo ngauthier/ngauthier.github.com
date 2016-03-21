@@ -1,9 +1,9 @@
 html {
   background: #fdfdfd;
   color: #333;
-  font-family: "Droid Serif", serif;
+  font-family: Roboto, sans-serif;
   font-size: 18px;
-  line-height: 185%;
+  line-height: 175%;
 }
 
 body {
@@ -18,7 +18,6 @@ h3 { font-size: 24px; }
 h1.site-title { font-size: 48px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Mate", serif;
   font-weight: normal;
   line-height: 125%;
   color: #333;
@@ -94,27 +93,36 @@ a:active {
   color: black;
   clear: both;
   margin-top: 8px;
-  padding: 2px;
-  height: 64px;
-  font-size: 20px;
+  padding: 0;
+  font-size: 22px;
   line-height: 64px;
   background-color: #e8ffe0;
   border-radius: 4px;
+  vertical-align: bottom;
 }
 
 .promo img {
-  float: left;
+  display: inline-block;
   height: 64px;
   width: 64px;
-  margin-right: 1em;
+  margin: 0 1em;
+  vertical-align: bottom;
 }
 
 .promo p {
   margin: 0;
-  float: left;
 }
 
 .promo a {
+  text-decoration: none;
+}
+
+.promo p.intro {
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  padding: 7px 0 0 0;
 }
 
 .content {
