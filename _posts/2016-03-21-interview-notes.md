@@ -22,7 +22,7 @@ Examples of positive experiences and qualities:
 
 1. If I ask about something pretty simple, like "What did you work on at X corp" and they explode into enthusiasm and talk about it on their own with only minimal "ah", "ok", "cool!" from me for a while. This person really loves what they do.
 1. Mutual feeling of at-ease when we speak. We're having an honest conversation, there's no positioning, choosing words carefully. We are just talking about stuff and establish a connection quickly. It can take until the end of the 30 minutes for this, but that's ok. As an interviewer, you should set the example of speaking honestly and openly.
-1. Opinions and willing to share them. Doesn't really matter if we agree or not, but I want to hear that the candidate has their own opinions on relevant subjects and is excited to discuss them.
+1. Opinions and willingness to share them. Doesn't really matter if we agree or not, but I want to hear that the candidate has their own opinions on relevant subjects and is excited to discuss them.
 
 ### Part 2: Code
 
