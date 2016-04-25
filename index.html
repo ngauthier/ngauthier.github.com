@@ -8,6 +8,8 @@ title: Nick Gauthier's Blog
 
 <p>Nick has spoken at a bunch of Ruby and Open-Source conferences including RailsConf, WindyCityRuby, GoRuCo, Ruby Hoedown, Lone Star Ruby Conf, and RubyNation, and he's always interested in speaking about web development, Ruby, Rails, JavaScript, Backbone, and other topics.</p>
 
+<p>Nick is currently working on <a href="http://www.meetspaceapp.com">MeetSpace</a> a video conferencing web app for distributed teams.</p>
+
 <h2>Posts</h2>
 <p>A reverse chronological archive of all posts by Nick Gauthier.</p>
 <div class='posts'>
@@ -18,7 +20,7 @@ title: Nick Gauthier's Blog
         <br>
         <small><time itemprop="startDate" datetime="{{post.date | date_to_xmlschema }}">{{post.date | date: "%Y-%m-%d"}}</time></small>
       </h3>
-      <p class='preview'>{{post.content | strip_html | truncate: 500 }}</p>
+      <p class='preview'>{{post.excerpt}}</p>
     </div>
   {% endfor %}
 </div>
