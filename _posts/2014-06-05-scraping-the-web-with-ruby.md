@@ -20,6 +20,7 @@ First, we're going to load up capybara and poltergeist. Poltergeist is a ruby ge
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 
 include Capybara::DSL
@@ -69,6 +70,7 @@ Our next goal is to export some CSV. All we'll do is load up the `csv` standard 
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 
@@ -102,6 +104,7 @@ To do this, we're going to keep track of an `articles` array, and store the arti
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 
@@ -160,6 +163,7 @@ Now, if the program crashes, when we resume we want to skip over any articles we
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -248,6 +252,7 @@ First off, we're doing everything in the global scope, and Capybara complains ev
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -327,6 +332,7 @@ Let's start with an `Article` that will wrap up parsing a Capybara node and dump
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -419,6 +425,7 @@ We're going to implement the Active Record Pattern. No, I'm not going to `requir
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
