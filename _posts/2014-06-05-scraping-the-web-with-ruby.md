@@ -31,7 +31,7 @@ Next up, we're going to visit my site. Then we'll iterate over every post and pu
 <pre class='prettyprint'>
 visit "http://ngauthier.com/"
 
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -79,7 +79,7 @@ visit "http://ngauthier.com/"
 
 CSV do |csv|
   csv << ["Title", "URL", "Date", "Summary"]
-  all(".posts .post").each do |post|
+  all(".posts > .post").each do |post|
     title = post.find("h3 a").text
     url   = post.find("h3 a")["href"]
     date  = post.find("h3 small").text
@@ -113,7 +113,7 @@ visit "http://ngauthier.com/"
 articles = []
 
 # Pass 1: summaries and info
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -129,7 +129,7 @@ end
 
 # Pass 2: full body of article
 articles.each do |article|
-  visit "http://ngauthier.com#{article[:url]}"
+  visit "#{article[:url]}"
   article[:body] = find("article").text
 end
 
@@ -176,7 +176,7 @@ We've required gdbm and now `articles` is a GDBM store in a file in the current 
 
 <pre class='prettyprint'>
 # Pass 1: summaries and info
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -202,7 +202,7 @@ When we store it, we `JSON.dump` our hash so that it's a string.
 articles.each do |url, json|
   article = JSON.load(json)
   next if article["body"]
-  visit "http://ngauthier.com#{url}"
+  visit url
   has_content?(article["title"]) or raise "couldn't load #{url}"
   article["body"] = find("article").text
   articles[url] = JSON.dump(article)
@@ -269,7 +269,7 @@ class NickBot
 
   def get_summaries
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       title = post.find("h3 a").text
       url   = post.find("h3 a")["href"]
       date  = post.find("h3 small").text
@@ -348,7 +348,7 @@ class NickBot
 
   def get_summaries
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       article = Article.from_summary(post)
       next if @articles[article.url]
       @articles[article.url] = article
@@ -433,7 +433,7 @@ class NickBot
 
   def scrape
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       article = Article.from_summary(post)
       next unless article.new_record?
       article.save
