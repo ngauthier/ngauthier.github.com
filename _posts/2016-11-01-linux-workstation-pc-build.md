@@ -2,6 +2,7 @@
 layout: post
 title: Linux Workstation PC Build
 date: 2016-11-01
+image: /images/nzxt-s340.png
 ---
 
 I got great response on Twitter from people who were interested in building a
