@@ -140,8 +140,9 @@ or two at a nice discount and double up your graphics power.
 # Bonus Section: Peripherals
 
 I really like the [Dell P2715Q 27" 4K monitor](http://amzn.to/2frbLjX), a
-[Das Keyboard](http://amzn.to/2e9RnxQ), and a
-[SteelSeries Sensei](http://amzn.to/2f9a3QF).
+[Das Keyboard](http://amzn.to/2e9RnxQ), a
+[SteelSeries Sensei](http://amzn.to/2f9a3QF), and a
+[Logitech C922x webcam](http://amzn.to/2ejiolO).
 
 On linux, a quick `xset m 1 1` will kill your mouse acceleration, making you
 very accurate.
