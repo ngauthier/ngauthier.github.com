@@ -135,7 +135,7 @@ or two at a nice discount and double up your graphics power.
 
 **Totally Maxxed Out Total: $1444**
 
-(This includes a second pair of RAM, liquid cooler, graphics, and 512MB SSD).
+(This includes a second pair of RAM, liquid cooler, graphics, and 512GB SSD).
 
 # Bonus Section: Peripherals
 
