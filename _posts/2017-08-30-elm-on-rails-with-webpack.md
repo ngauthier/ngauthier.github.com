@@ -99,7 +99,7 @@ end
 
 <pre class='prettyprint'>
 $ mkdir app/views/application
-$ touch app/views/application.html.erb
+$ touch app/views/application/index.html.erb
 </pre>
 
 Now run `rails server` open up your app, and it should say "Hello Elm!". Pretty easy, huh!
