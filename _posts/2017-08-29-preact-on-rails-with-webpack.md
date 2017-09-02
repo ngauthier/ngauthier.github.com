@@ -216,7 +216,7 @@ end
 
 <pre class='prettyprint'>
 $ mkdir app/views/application
-$ touch app/views/application.html.erb
+$ touch app/views/application/index.html.erb
 </pre>
 
 Now we can run `rails server` and it should just be a blank screen, but in the console, we should see:
