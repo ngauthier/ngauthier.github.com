@@ -89,42 +89,6 @@ a:active {
   text-decoration: underline;
 }
 
-.promo {
-  color: black;
-  clear: both;
-  margin-top: 8px;
-  padding: 0;
-  font-size: 22px;
-  line-height: 64px;
-  background-color: #e8ffe0;
-  border-radius: 4px;
-  vertical-align: bottom;
-}
-
-.promo img {
-  display: inline-block;
-  height: 64px;
-  width: 64px;
-  margin: 0 1em;
-  vertical-align: bottom;
-}
-
-.promo p {
-  margin: 0;
-}
-
-.promo a {
-  text-decoration: none;
-}
-
-.promo p.intro {
-  text-align: center;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0;
-  padding: 7px 0 0 0;
-}
-
 .content {
   clear: both;
 }
