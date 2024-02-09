@@ -20,6 +20,7 @@ First, we're going to load up capybara and poltergeist. Poltergeist is a ruby ge
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 
 include Capybara::DSL
@@ -31,7 +32,7 @@ Next up, we're going to visit my site. Then we'll iterate over every post and pu
 <pre class='prettyprint'>
 visit "http://ngauthier.com/"
 
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -69,6 +70,7 @@ Our next goal is to export some CSV. All we'll do is load up the `csv` standard 
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 
@@ -79,7 +81,7 @@ visit "http://ngauthier.com/"
 
 CSV do |csv|
   csv << ["Title", "URL", "Date", "Summary"]
-  all(".posts .post").each do |post|
+  all(".posts > .post").each do |post|
     title = post.find("h3 a").text
     url   = post.find("h3 a")["href"]
     date  = post.find("h3 small").text
@@ -102,6 +104,7 @@ To do this, we're going to keep track of an `articles` array, and store the arti
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 
@@ -113,7 +116,7 @@ visit "http://ngauthier.com/"
 articles = []
 
 # Pass 1: summaries and info
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -129,7 +132,7 @@ end
 
 # Pass 2: full body of article
 articles.each do |article|
-  visit "http://ngauthier.com#{article[:url]}"
+  visit "#{article[:url]}"
   article[:body] = find("article").text
 end
 
@@ -160,6 +163,7 @@ Now, if the program crashes, when we resume we want to skip over any articles we
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -176,7 +180,7 @@ We've required gdbm and now `articles` is a GDBM store in a file in the current 
 
 <pre class='prettyprint'>
 # Pass 1: summaries and info
-all(".posts .post").each do |post|
+all(".posts > .post").each do |post|
   title = post.find("h3 a").text
   url   = post.find("h3 a")["href"]
   date  = post.find("h3 small").text
@@ -202,7 +206,7 @@ When we store it, we `JSON.dump` our hash so that it's a string.
 articles.each do |url, json|
   article = JSON.load(json)
   next if article["body"]
-  visit "http://ngauthier.com#{url}"
+  visit url
   has_content?(article["title"]) or raise "couldn't load #{url}"
   article["body"] = find("article").text
   articles[url] = JSON.dump(article)
@@ -248,6 +252,7 @@ First off, we're doing everything in the global scope, and Capybara complains ev
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -269,7 +274,7 @@ class NickBot
 
   def get_summaries
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       title = post.find("h3 a").text
       url   = post.find("h3 a")["href"]
       date  = post.find("h3 small").text
@@ -327,6 +332,7 @@ Let's start with an `Article` that will wrap up parsing a Capybara node and dump
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -348,7 +354,7 @@ class NickBot
 
   def get_summaries
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       article = Article.from_summary(post)
       next if @articles[article.url]
       @articles[article.url] = article
@@ -419,6 +425,7 @@ We're going to implement the Active Record Pattern. No, I'm not going to `requir
 #!/usr/bin/env ruby
 
 require 'capybara'
+require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'csv'
 require 'gdbm'
@@ -433,7 +440,7 @@ class NickBot
 
   def scrape
     visit "http://ngauthier.com/"
-    all(".posts .post").each do |post|
+    all(".posts > .post").each do |post|
       article = Article.from_summary(post)
       next unless article.new_record?
       article.save
